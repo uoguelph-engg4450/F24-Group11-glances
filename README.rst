@@ -1,5 +1,5 @@
 ===============================
-Glances - An eye on your system (test)
+Glances - An eye on your system
 ===============================
 
 |  |pypi| |test| |contributors| |quality|
