@@ -91,6 +91,7 @@ class _GlancesCurses:
         'z': {'handler': '_handle_disable_process'},
         '+': {'handler': '_handle_increase_nice'},
         '-': {'handler': '_handle_decrease_nice'},
+        '`': {'handler': '_handle_backtick'},
         # "<" (left arrow) navigation through process sort
         # ">" (right arrow) navigation through process sort
         # 'UP' > Up in the server list
@@ -126,6 +127,9 @@ class _GlancesCurses:
 
     # Define right sidebar
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
+
+    def _handle_backtick(self):
+        light_dark_mode.run()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -1210,3 +1214,47 @@ class GlancesTextboxYesNo(Textbox):
 
     def do_command(self, ch):
         return super().do_command(ch)
+    
+class light_dark_mode:
+   
+    mode = 'light'
+
+
+    def run(self):
+        logger.info("MyClass is running!")
+        if self.__class__.mode == 'dark':
+            #set turminal screen black
+            curses.wrapper(dark_mode)
+            self.__class__.mode = 'light'
+            logger.info("MyClass is running!")
+        else:
+            #set turminal screen white
+            curses.wrapper(lgiht_mode)
+            self.__class__.mode = 'dark'
+            logger.info("MyClass is running!")
+
+
+def lgiht_mode(stdscr):
+    # Start color mode
+    curses.start_color()
+
+
+    # Initialize color pairs (foreground, background)
+    curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+
+
+    # Refresh the screen with the new background color
+    stdscr.refresh()
+
+
+def dark_mode(stdscr):
+    # Start color mode
+    curses.start_color()
+
+
+    # Initialize color pairs (foreground, background)
+    curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
+
+
+    # Refresh the screen with the new background color
+    stdscr.refresh()
