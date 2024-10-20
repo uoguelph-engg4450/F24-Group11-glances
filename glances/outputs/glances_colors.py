@@ -195,10 +195,10 @@ class GlancesColors:
         stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
-        stdscr.getch()  # Wait for key press
+        #stdscr.getch()  # Wait for key press
 
         # Refresh the screen with the new background color
-        stdscr.refresh()
+        #stdscr.refresh()
 
 
     def dark_mode(self, stdscr):
@@ -217,7 +217,7 @@ class GlancesColors:
         stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
-        stdscr.getch()  # Wait for key press
+        #stdscr.getch()  # Wait for key press
 
         # Refresh the screen with the new background color
-        stdscr.refresh()
+        #stdscr.refresh()
