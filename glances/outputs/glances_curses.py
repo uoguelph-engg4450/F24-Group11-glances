@@ -129,8 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        switcher = light_dark_mode()
-        switcher.run()
+        self.light_dark_mode.run()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -213,7 +212,7 @@ class _GlancesCurses:
         """Init the history option."""
 
         self.reset_history_tag = False
-
+    
     def _init_cursor(self):
         """Init cursors."""
 
@@ -235,6 +234,8 @@ class _GlancesCurses:
                 curses.curs_set(value)
             except Exception:
                 pass
+        
+        self.light_dark_mode = light_dark_mode
 
     def get_key(self, window):
         # TODO: Check issue #163
