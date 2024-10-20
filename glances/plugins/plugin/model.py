@@ -494,7 +494,7 @@ class GlancesPluginModel:
             #        value['hidden'] = field in self.hide_zero_fields
             #    ret[field] = value
 
-        #self.views = ret
+        self.views = ret
 
         return self.views
 
