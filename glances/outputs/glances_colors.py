@@ -23,13 +23,10 @@ class GlancesColors:
     """Class to manage colors in Glances UI
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
-    forground = curses.COLOR_WHITE
-    background = curses.COLOR_BLACK
-    mode = 'light'
+    
     
     def __init__(self, args) -> None:
         self.args = args
-        
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -41,7 +38,7 @@ class GlancesColors:
                 logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
             if hasattr(curses, 'use_default_colors'):
                 # Use -1 to use the default foregound/background color
-                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
+                curses.use_default_colors()
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
@@ -181,14 +178,15 @@ class GlancesColors:
 
     def light_mode(self, stdscr):
         # Start color mode
-        curses.start_color()
 
 
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
         self.__class__.forground = curses.COLOR_BLACK
         self.__class__.background = curses.COLOR_WHITE
-        
+
+        stdscr.clear()  # Clear the screen to apply the new color
+
         self.__init__(self.args)
 
         # Apply the new color pair for light mode
@@ -196,7 +194,7 @@ class GlancesColors:
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
         #self.__define_colors()
         #self.__define_bw()
-        stdscr.clear()  # Clear the screen to apply the new color
+        #stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
         #stdscr.getch()  # Wait for key press
@@ -207,13 +205,14 @@ class GlancesColors:
 
     def dark_mode(self, stdscr):
         # Start color mode
-        curses.start_color()
 
         print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-        self.__class__.forground = curses.COLOR_WHITE
-        self.__class__.background = curses.COLOR_BLACK
+        self.__class__.forground = -1
+        self.__class__.background = -1
+
+        stdscr.clear()  # Clear the screen to apply the new color
 
         self.__init__(self.args)
 
@@ -223,8 +222,6 @@ class GlancesColors:
         #self.__define_colors()
         #self.__define_bw()
         # Apply the new color pair for dark mode
-
-        stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
         #stdscr.getch()  # Wait for key press
