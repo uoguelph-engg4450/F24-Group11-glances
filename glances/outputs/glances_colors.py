@@ -29,6 +29,7 @@ class GlancesColors:
         self.args = args
         self.__class__.forground = -1
         self.__class__.background = -1
+        self.__class__.mode = 'light'
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -63,6 +64,7 @@ class GlancesColors:
         self.args = args
         self.__class__.forground = curses.COLOR_BLACK
         self.__class__.background = curses.COLOR_WHITE
+        self.__class__.mode = 'dark'
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -204,12 +206,10 @@ class GlancesColors:
         if self.__class__.mode == 'dark':
             #set turminal screen black
             curses.wrapper(self.dark_mode)
-            self.__class__.mode = 'light'
             print("\n\nDarkmode")
         else:
             #set turminal screen white
             curses.wrapper(self.light_mode)
-            self.__class__.mode = 'dark'
             print("\n\nlight mode")
 
 
