@@ -129,7 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
 
     def _handle_backtick(self):
-        light_dark_mode.run()
+        light_dark_mode.run(self)
 
     def __init__(self, config=None, args=None):
         # Init
@@ -1218,7 +1218,6 @@ class GlancesTextboxYesNo(Textbox):
 class light_dark_mode:
    
     mode = 'light'
-    
 
     def run(self):
         logger.info("MyClass is running!")
