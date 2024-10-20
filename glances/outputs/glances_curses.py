@@ -129,7 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        light_dark_mode.run(switcher)
+        light_dark_mode.run()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -1226,39 +1226,39 @@ class light_dark_mode:
         logger.info("MyClass is running!")
         if self.__class__.mode == 'dark':
             #set turminal screen black
-            curses.wrapper(dark_mode)
+            curses.wrapper(self.dark_mode)
             self.__class__.mode = 'light'
             logger.info("MyClass is running!")
         else:
             #set turminal screen white
-            curses.wrapper(lgiht_mode)
+            curses.wrapper(self.lgiht_mode)
             self.__class__.mode = 'dark'
             logger.info("MyClass is running!")
 
 
-def lgiht_mode(stdscr):
-    # Start color mode
-    curses.start_color()
+    def lgiht_mode(stdscr):
+        # Start color mode
+        curses.start_color()
 
 
-    # Initialize color pairs (foreground, background)
-    curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
-    print("\n\nLight mode")
+        # Initialize color pairs (foreground, background)
+        curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+        print("\n\nLight mode")
 
-    # Refresh the screen with the new background color
-    stdscr.refresh()
-
-
-def dark_mode(stdscr):
-    # Start color mode
-    curses.start_color()
-
-    print("\n\Dark mode mode")
-    # Initialize color pairs (foreground, background)
-    curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
+        # Refresh the screen with the new background color
+        stdscr.refresh()
 
 
-    # Refresh the screen with the new background color
-    stdscr.refresh()
+    def dark_mode(stdscr):
+        # Start color mode
+        curses.start_color()
+
+        print("\n\Dark mode mode")
+        # Initialize color pairs (foreground, background)
+        curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
+
+
+        # Refresh the screen with the new background color
+        stdscr.refresh()
 
 switcher = light_dark_mode.light_dark_mode()
