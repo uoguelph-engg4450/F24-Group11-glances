@@ -129,7 +129,8 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        light_dark_mode.run()
+        switcher = light_dark_mode()
+        switcher.run()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -1261,4 +1262,4 @@ class light_dark_mode:
         # Refresh the screen with the new background color
         stdscr.refresh()
 
-switcher = light_dark_mode.light_dark_mode()
+
