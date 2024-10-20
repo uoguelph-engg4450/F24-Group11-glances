@@ -1218,9 +1218,7 @@ class GlancesTextboxYesNo(Textbox):
 class light_dark_mode:
    
     mode = 'light'
-    print("Button pressed")
-    OSError.winerror.from_bytes
-    exit
+    
 
     def run(self):
         logger.info("MyClass is running!")
@@ -1243,7 +1241,7 @@ def lgiht_mode(stdscr):
 
     # Initialize color pairs (foreground, background)
     curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
-
+    print("\n\nLight mode")
 
     # Refresh the screen with the new background color
     stdscr.refresh()
@@ -1253,7 +1251,7 @@ def dark_mode(stdscr):
     # Start color mode
     curses.start_color()
 
-
+    print("\n\Dark mode mode")
     # Initialize color pairs (foreground, background)
     curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
 
