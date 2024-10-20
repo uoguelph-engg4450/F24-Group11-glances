@@ -10,10 +10,27 @@
 
 from datetime import datetime
 from time import time
+from threading import Timer 
 
 # Global list to manage the elapsed time
 last_update_times = {}
 
+def debounce(wait): 
+    """ Decorator that will postpone a functions 
+        execution until after wait seconds 
+        have elapsed since the last time it was invoked. """ 
+    def decorator(fn): 
+        def debounced(*args, **kwargs): 
+            def call_it(): 
+                fn(*args, **kwargs) 
+            try: 
+                debounced.t.cancel() 
+            except(AttributeError): 
+                pass 
+            debounced.t = Timer(wait, call_it) 
+            debounced.t.start() 
+        return debounced 
+    return decorator 
 
 def getTimeSinceLastUpdate(IOType):
     """Return the elapsed time since last update."""

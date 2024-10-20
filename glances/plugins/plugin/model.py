@@ -22,7 +22,7 @@ from glances.history import GlancesHistory
 from glances.logger import logger
 from glances.outputs.glances_unicode import unicode_message
 from glances.thresholds import glances_thresholds
-from glances.timer import Counter, Timer, getTimeSinceLastUpdate
+from glances.timer import Counter, Timer, getTimeSinceLastUpdate, debounce
 
 fields_unit_short = {'percent': '%'}
 
@@ -494,6 +494,33 @@ class GlancesPluginModel:
         self.views = ret
 
         return self.views
+
+    @debounce(0.3) 
+    def manageElseIf(self, value, field, ret): 
+        if not self.hide_zero: 
+            value['hidden'] = False 
+        elif field in self.views and 'hidden' in self.views[field]: 
+            value['hidden'] = self.views[field]['hidden'] 
+            if field in self.hide_zero_fields and self.get_raw()[field] != 0: 
+                    value['hidden'] = False 
+        else: 
+            value['hidden'] = field in self.hide_zero_fields 
+        ret[field] = value 
+
+ 
+
+    @debounce(0.3) 
+    def manageIf(self, value, field, ret, key): 
+        if not self.hide_zero: 
+            value['hidden'] = False 
+        elif key in self.views and field in self.views[key] and 'hidden' in self.views[key][field]: 
+            value['hidden'] = self.views[key][field]['hidden'] 
+            if field in self.hide_zero_fields and i[field] != 0: 
+                value['hidden'] = False 
+        else: 
+            value['hidden'] = field in self.hide_zero_fields 
+        ret[key][field] = value 
+
 
     def set_views(self, input_views):
         """Set the views to input_views."""
