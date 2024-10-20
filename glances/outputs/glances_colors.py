@@ -24,8 +24,9 @@ class GlancesColors:
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
 
-    forground = curses.COLOR_BLACK
-    background = curses.COLOR_BLACK
+    forground = -1
+    background = -1
+    mode = 'light'
 
     def __init__(self, args) -> None:
         self.args = args
@@ -162,3 +163,43 @@ class GlancesColors:
             'ERROR': self.SELECTED,
             'SEPARATOR': self.SEPARATOR,
         }
+
+
+    def switchLDmode(self):
+        print("\n\nRunning switcher")
+        if self.__class__.mode == 'dark':
+            #set turminal screen black
+            curses.wrapper(self.dark_mode)
+            self.__class__.mode = 'light'
+            print("\n\nDarkmode")
+        else:
+            #set turminal screen white
+            curses.wrapper(self.light_mode)
+            self.__class__.mode = 'dark'
+            print("\n\nlight mode")
+
+
+    def light_mode(self, stdscr):
+        # Start color mode
+        curses.start_color()
+
+
+        # Initialize color pairs (foreground, background)
+        curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+        print("\n\nLight mode")
+
+        # Refresh the screen with the new background color
+        stdscr.refresh()
+
+
+    def dark_mode(self, stdscr):
+        # Start color mode
+        curses.start_color()
+
+        print("\n\Dark mode mode")
+        # Initialize color pairs (foreground, background)
+        curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
+
+
+        # Refresh the screen with the new background color
+        stdscr.refresh()

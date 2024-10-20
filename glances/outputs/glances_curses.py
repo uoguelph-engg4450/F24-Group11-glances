@@ -129,7 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        self.light_dark_mode.run()
+        GlancesColors.switchLDmode()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -196,9 +196,8 @@ class _GlancesCurses:
 
         # History tag
         self._init_history()
-    
-        self.light_dark_mode = light_dark_mode()
 
+        
     def load_config(self, config):
         """Load the outputs section of the configuration file."""
         if config is not None and config.has_section('outputs'):
@@ -1219,48 +1218,6 @@ class GlancesTextboxYesNo(Textbox):
     def do_command(self, ch):
         return super().do_command(ch)
     
-class light_dark_mode:
-   
-    mode = 'light'
 
-
-    def run(self):
-        logger.info("MyClass is running!")
-        if self.__class__.mode == 'dark':
-            #set turminal screen black
-            curses.wrapper(self.dark_mode)
-            self.__class__.mode = 'light'
-            logger.info("MyClass is running!")
-        else:
-            #set turminal screen white
-            curses.wrapper(self.light_mode)
-            self.__class__.mode = 'dark'
-            logger.info("MyClass is running!")
-
-
-    def light_mode(self, stdscr):
-        # Start color mode
-        curses.start_color()
-
-
-        # Initialize color pairs (foreground, background)
-        curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
-        print("\n\nLight mode")
-
-        # Refresh the screen with the new background color
-        stdscr.refresh()
-
-
-    def dark_mode(self, stdscr):
-        # Start color mode
-        curses.start_color()
-
-        print("\n\Dark mode mode")
-        # Initialize color pairs (foreground, background)
-        curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-
-
-        # Refresh the screen with the new background color
-        stdscr.refresh()
 
 
