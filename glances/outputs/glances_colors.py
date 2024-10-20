@@ -23,13 +23,13 @@ class GlancesColors:
     """Class to manage colors in Glances UI
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
-
+    forground = -1
+    background = -1
+    mode = 'light'
     
     def __init__(self, args) -> None:
         self.args = args
-        self.forground = -1
-        self.background = -1
-        self.mode = 'light'
+        
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -188,7 +188,14 @@ class GlancesColors:
         #curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
         self.__class__.forground = curses.COLOR_BLACK
         self.__class__.background = curses.COLOR_WHITE
-        print("\n\nLight mode")
+        
+        # Apply the new color pair for light mode
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        stdscr.clear()  # Clear the screen to apply the new color
+        stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
+        stdscr.refresh()  # Refresh the screen to apply changes
+        stdscr.getch()  # Wait for key press
 
         # Refresh the screen with the new background color
         stdscr.refresh()
@@ -203,6 +210,14 @@ class GlancesColors:
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
         self.__class__.forground = -1
         self.__class__.background = -1
+
+        # Apply the new color pair for dark mode
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        stdscr.clear()  # Clear the screen to apply the new color
+        stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
+        stdscr.refresh()  # Refresh the screen to apply changes
+        stdscr.getch()  # Wait for key press
 
         # Refresh the screen with the new background color
         stdscr.refresh()
