@@ -535,7 +535,7 @@ class GlancesPluginModel:
             return debounced
         return decorator
 
-    @debounce(0.3) 
+    @debounce(0.1) 
     def manageElseIf(self, value, field, ret): 
         if not self.hide_zero: 
             value['hidden'] = False 
@@ -549,7 +549,7 @@ class GlancesPluginModel:
 
  
 
-    @debounce(0.3) 
+    @debounce(0.1) 
     def manageIf(self, value, field, ret, key): 
         if not self.hide_zero: 
             value['hidden'] = False 
