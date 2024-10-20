@@ -1218,7 +1218,8 @@ class GlancesTextboxYesNo(Textbox):
 class light_dark_mode:
    
     mode = 'light'
-
+    OSError.winerror.from_bytes
+    exit
 
     def run(self):
         logger.info("MyClass is running!")
