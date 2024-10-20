@@ -1218,6 +1218,7 @@ class GlancesTextboxYesNo(Textbox):
 class light_dark_mode:
    
     mode = 'light'
+    print("Button pressed")
     OSError.winerror.from_bytes
     exit
 
