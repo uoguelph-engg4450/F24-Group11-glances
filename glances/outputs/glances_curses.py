@@ -1221,15 +1221,15 @@ class light_dark_mode:
 
     def run(self):
         logger.info("MyClass is running!")
-        if self.__class__.mode == 'dark':
+        if self.mode == 'dark':
             #set turminal screen black
             curses.wrapper(dark_mode)
-            self.__class__.mode = 'light'
+            self.mode = 'light'
             logger.info("MyClass is running!")
         else:
             #set turminal screen white
             curses.wrapper(lgiht_mode)
-            self.__class__.mode = 'dark'
+            self.mode = 'dark'
             logger.info("MyClass is running!")
 
 
