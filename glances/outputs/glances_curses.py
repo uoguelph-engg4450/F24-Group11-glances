@@ -129,7 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        GlancesColors.switchLDmode()
+        self.switcher.switchLDmode()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -197,6 +197,7 @@ class _GlancesCurses:
         # History tag
         self._init_history()
 
+        self.switcher = GlancesColors()
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""
