@@ -193,7 +193,7 @@ class GlancesColors:
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
         stdscr.clear()  # Clear the screen to apply the new color
-        stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
+        #stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
         stdscr.getch()  # Wait for key press
 
@@ -215,7 +215,7 @@ class GlancesColors:
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
         stdscr.clear()  # Clear the screen to apply the new color
-        stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
+        #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
         stdscr.getch()  # Wait for key press
 
