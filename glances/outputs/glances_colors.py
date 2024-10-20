@@ -41,8 +41,7 @@ class GlancesColors:
                 logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
             if hasattr(curses, 'use_default_colors'):
                 # Use -1 to use the default foregound/background color
-                curses.init_pair(1, self.__class__.forground, self.__class__.background)
-                curses.color_pair(1)
+                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
