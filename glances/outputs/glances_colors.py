@@ -219,14 +219,15 @@ class GlancesColors:
 
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
 
         stdscr.clear()  # Clear the screen to apply the new color
 
         self.__white_init__(self.args)
 
         # Apply the new color pair for light mode
-        curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        
         #self.__define_colors()
         #self.__define_bw()
         #stdscr.clear()  # Clear the screen to apply the new color
@@ -245,12 +246,14 @@ class GlancesColors:
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
 
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+
         stdscr.clear()  # Clear the screen to apply the new color
 
         self.__init__(self.args)
 
-        curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        
 
         #self.__define_colors()
         #self.__define_bw()
