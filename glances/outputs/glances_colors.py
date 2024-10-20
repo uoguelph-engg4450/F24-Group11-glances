@@ -23,8 +23,8 @@ class GlancesColors:
     """Class to manage colors in Glances UI
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
-    forground = -1
-    background = -1
+    forground = curses.COLOR_WHITE
+    background = curses.COLOR_BLACK
     mode = 'light'
     
     def __init__(self, args) -> None:
@@ -64,7 +64,7 @@ class GlancesColors:
         return self.get()
 
     def __define_colors(self) -> None:
-        curses.init_pair(1, -1, -1)
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
         if self.args.disable_bg:
             curses.init_pair(2, curses.COLOR_RED, self.__class__.background)
             curses.init_pair(3, curses.COLOR_GREEN, self.__class__.background)
@@ -210,8 +210,8 @@ class GlancesColors:
         print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-        self.__class__.forground = -1
-        self.__class__.background = -1
+        self.__class__.forground = curses.COLOR_WHITE
+        self.__class__.background = curses.COLOR_BLACK
 
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
