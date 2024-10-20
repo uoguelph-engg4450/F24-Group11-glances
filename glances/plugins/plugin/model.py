@@ -25,7 +25,6 @@ from glances.logger import logger
 from glances.outputs.glances_unicode import unicode_message
 from glances.thresholds import glances_thresholds
 from glances.timer import Counter, Timer, getTimeSinceLastUpdate
-from threading import Timer
 from inspect import signature
 
 fields_unit_short = {'percent': '%'}
