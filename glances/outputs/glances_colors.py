@@ -119,14 +119,14 @@ class GlancesColors:
         # The screen is NOT compatible with a colored design
         # switch to B&W text styles
         # ex: export TERM=xterm-mono
-        self.DEFAULT = -1
-        self.OK_LOG = -1
+        self.DEFAULT = self.__class__.background
+        self.OK_LOG = self.__class__.background
         self.NICE = self.A_BOLD
         self.CPU_TIME = self.A_BOLD
         self.CAREFUL_LOG = self.A_BOLD
         self.WARNING_LOG = curses.A_UNDERLINE
         self.CRITICAL_LOG = curses.A_REVERSE
-        self.OK = -1
+        self.OK = self.__class__.background
         self.CAREFUL = self.A_BOLD
         self.WARNING = curses.A_UNDERLINE
         self.CRITICAL = curses.A_REVERSE
