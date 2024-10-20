@@ -189,11 +189,13 @@ class GlancesColors:
         self.__class__.forground = curses.COLOR_BLACK
         self.__class__.background = curses.COLOR_WHITE
         
+        self.__init__(self.args)
+
         # Apply the new color pair for light mode
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
-        self.__define_colors()
-        self.__define_bw()
+        #self.__define_colors()
+        #self.__define_bw()
         stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
@@ -213,11 +215,13 @@ class GlancesColors:
         self.__class__.forground = curses.COLOR_WHITE
         self.__class__.background = curses.COLOR_BLACK
 
+        self.__init__(self.args)
+
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
         stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
 
-        self.__define_colors()
-        self.__define_bw()
+        #self.__define_colors()
+        #self.__define_bw()
         # Apply the new color pair for dark mode
 
         stdscr.clear()  # Clear the screen to apply the new color
