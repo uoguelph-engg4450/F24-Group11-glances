@@ -127,9 +127,9 @@ class _GlancesCurses:
 
     # Define right sidebar
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
-
+    
     def _handle_backtick(self):
-        light_dark_mode.run(self)
+        light_dark_mode.run(switcher)
 
     def __init__(self, config=None, args=None):
         # Init
@@ -1219,17 +1219,20 @@ class light_dark_mode:
    
     mode = 'light'
 
+    def light_dark_mode():
+        print("\n\nMyClass is running!")
+
     def run(self):
         logger.info("MyClass is running!")
-        if self.mode == 'dark':
+        if self.__class__.mode == 'dark':
             #set turminal screen black
             curses.wrapper(dark_mode)
-            self.mode = 'light'
+            self.__class__.mode = 'light'
             logger.info("MyClass is running!")
         else:
             #set turminal screen white
             curses.wrapper(lgiht_mode)
-            self.mode = 'dark'
+            self.__class__.mode = 'dark'
             logger.info("MyClass is running!")
 
 
@@ -1257,3 +1260,5 @@ def dark_mode(stdscr):
 
     # Refresh the screen with the new background color
     stdscr.refresh()
+
+switcher = light_dark_mode.light_dark_mode()
