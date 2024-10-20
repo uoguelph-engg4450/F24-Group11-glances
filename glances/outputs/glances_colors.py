@@ -24,6 +24,9 @@ class GlancesColors:
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
 
+    forground = curses.COLOR_BLACK
+    background = curses.COLOR_BLACK
+
     def __init__(self, args) -> None:
         self.args = args
 
@@ -41,7 +44,7 @@ class GlancesColors:
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
-                curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
         except Exception as e:
             logger.warning(f'Error initializing terminal color ({e})')
 
@@ -60,19 +63,19 @@ class GlancesColors:
         return self.get()
 
     def __define_colors(self) -> None:
-        curses.init_pair(1, -1, -1)
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
         if self.args.disable_bg:
-            curses.init_pair(2, curses.COLOR_RED, -1)
-            curses.init_pair(3, curses.COLOR_GREEN, -1)
-            curses.init_pair(5, curses.COLOR_MAGENTA, -1)
+            curses.init_pair(2, curses.COLOR_RED, self.__class__.background)
+            curses.init_pair(3, curses.COLOR_GREEN, self.__class__.background)
+            curses.init_pair(5, curses.COLOR_MAGENTA, self.__class__.background)
         else:
-            curses.init_pair(2, -1, curses.COLOR_RED)
+            curses.init_pair(2, self.__class__.forground, curses.COLOR_RED)
             curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_GREEN)
-            curses.init_pair(5, -1, curses.COLOR_MAGENTA)
-        curses.init_pair(4, curses.COLOR_BLUE, -1)
-        curses.init_pair(6, curses.COLOR_RED, -1)
-        curses.init_pair(7, curses.COLOR_GREEN, -1)
-        curses.init_pair(8, curses.COLOR_MAGENTA, -1)
+            curses.init_pair(5, self.__class__.forground, curses.COLOR_MAGENTA)
+        curses.init_pair(4, curses.COLOR_BLUE, self.__class__.background)
+        curses.init_pair(6, curses.COLOR_RED, self.__class__.background)
+        curses.init_pair(7, curses.COLOR_GREEN, self.__class__.background)
+        curses.init_pair(8, curses.COLOR_MAGENTA, self.__class__.background)
 
         # Colors text styles
         self.DEFAULT = curses.color_pair(1)
@@ -94,18 +97,18 @@ class GlancesColors:
         if curses.COLORS > 8:
             # ex: export TERM=xterm-256color
             try:
-                curses.init_pair(9, curses.COLOR_CYAN, -1)
-                curses.init_pair(10, curses.COLOR_YELLOW, -1)
+                curses.init_pair(9, curses.COLOR_CYAN, self.__class__.background)
+                curses.init_pair(10, curses.COLOR_YELLOW, self.__class__.background)
             except Exception:
-                curses.init_pair(9, -1, -1)
-                curses.init_pair(10, -1, -1)
+                curses.init_pair(9, self.__class__.forground, self.__class__.background)
+                curses.init_pair(10, self.__class__.forground, self.__class__.background)
             self.FILTER = curses.color_pair(9) | self.A_BOLD
             self.SELECTED = curses.color_pair(10) | self.A_BOLD
 
             # Define separator line style
             try:
                 curses.init_color(11, 500, 500, 500)
-                curses.init_pair(11, curses.COLOR_BLACK, -1)
+                curses.init_pair(11, curses.COLOR_BLACK, self.__class__.background)
                 self.SEPARATOR = curses.color_pair(11)
             except Exception:
                 # Catch exception in TMUX
