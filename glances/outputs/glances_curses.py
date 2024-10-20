@@ -1238,7 +1238,7 @@ class light_dark_mode:
             logger.info("MyClass is running!")
 
 
-    def lgiht_mode(stdscr):
+    def lgiht_mode(self, stdscr):
         # Start color mode
         curses.start_color()
 
@@ -1251,7 +1251,7 @@ class light_dark_mode:
         stdscr.refresh()
 
 
-    def dark_mode(stdscr):
+    def dark_mode(self, stdscr):
         # Start color mode
         curses.start_color()
 
