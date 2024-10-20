@@ -197,7 +197,7 @@ class _GlancesCurses:
         # History tag
         self._init_history()
 
-        self.switcher = GlancesColors()
+        self.switcher = GlancesColors(args)
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""
