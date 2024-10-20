@@ -447,10 +447,10 @@ class GlancesPluginModel:
 
         if isinstance(self.get_raw(), list) and self.get_raw() is not None and self.get_key() is not None:
             # Stats are stored in a list of dict (ex: DISKIO, NETWORK, FS...)
-            for i in self.get_raw():
-                key = i[self.get_key()]
-                ret[key] = {}
-                self.manageIf(ret, key)
+            self.manageIf(ret)
+            #for i in self.get_raw():
+                #key = i[self.get_key()]
+                #ret[key] = {}
                 #for field in listkeys(i):
                     #value = {
                     #    'decoration': 'DEFAULT',
