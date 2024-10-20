@@ -109,7 +109,7 @@ class GlancesColors:
             # Define separator line style
             try:
                 curses.init_color(11, 500, 500, 500)
-                curses.init_pair(11, curses.COLOR_BLACK, self.__class__.background)
+                curses.init_pair(11, self.__class__.forground, self.__class__.background)
                 self.SEPARATOR = curses.color_pair(11)
             except Exception:
                 # Catch exception in TMUX
@@ -133,7 +133,7 @@ class GlancesColors:
         self.INFO = self.A_BOLD
         self.FILTER = self.A_BOLD
         self.SELECTED = self.A_BOLD
-        self.SEPARATOR = -1
+        self.SEPARATOR = self.__class__.background
 
     def get(self) -> dict:
         return {
