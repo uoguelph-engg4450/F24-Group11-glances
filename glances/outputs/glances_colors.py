@@ -41,7 +41,7 @@ class GlancesColors:
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
-                curses.assume_default_colors(-1, -1)
+                curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
         except Exception as e:
             logger.warning(f'Error initializing terminal color ({e})')
 

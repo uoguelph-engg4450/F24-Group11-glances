@@ -1233,12 +1233,12 @@ class light_dark_mode:
             logger.info("MyClass is running!")
         else:
             #set turminal screen white
-            curses.wrapper(self.lgiht_mode)
+            curses.wrapper(self.light_mode)
             self.__class__.mode = 'dark'
             logger.info("MyClass is running!")
 
 
-    def lgiht_mode(self, stdscr):
+    def light_mode(self, stdscr):
         # Start color mode
         curses.start_color()
 
