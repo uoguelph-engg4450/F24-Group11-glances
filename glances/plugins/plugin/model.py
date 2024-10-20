@@ -14,6 +14,8 @@ I am your father...
 
 import copy
 import re
+import time
+
 
 from glances.actions import GlancesActions
 from glances.events_list import glances_events
@@ -23,6 +25,8 @@ from glances.logger import logger
 from glances.outputs.glances_unicode import unicode_message
 from glances.thresholds import glances_thresholds
 from glances.timer import Counter, Timer, getTimeSinceLastUpdate
+from threading import Timer
+from inspect import signature
 
 fields_unit_short = {'percent': '%'}
 
@@ -494,6 +498,93 @@ class GlancesPluginModel:
         self.views = ret
 
         return self.views
+
+    def debounce(wait):
+        def decorator(fn):
+            sig = signature(fn)
+            caller = {}
+
+            def debounced(*args, **kwargs):
+                nonlocal caller
+
+                try:
+                    bound_args = sig.bind(*args, **kwargs)
+                    bound_args.apply_defaults()
+                    called_args = fn.__name__ + str(dict(bound_args.arguments))
+                except:
+                    called_args = ''
+
+                def call_it(key):
+                    try:
+                        # always remove on call
+                        caller.pop(key)
+                    except:
+                        pass
+
+                    fn(*args, **kwargs)
+
+                try:
+                    # Always try to cancel timer
+                    caller[called_args].cancel()
+                except:
+                    pass
+
+                caller[called_args] = Timer(wait, call_it, [called_args])
+                caller[called_args].start()
+
+            return debounced
+        return decorator
+
+    @debounce(0.1) 
+    def manageElseIf(self, ret): 
+        for field in listkeys(self.get_raw()):
+            value = {
+                'decoration': 'DEFAULT',
+                'optional': False,
+                'additional': False,
+                'splittable': False,
+                'hidden': False,
+            }
+            # Manage the hidden feature
+            # Allow to automatically hide fields when values is never different than 0
+            # Refactoring done for #2929
+            if not self.hide_zero:
+                value['hidden'] = False
+            elif field in self.views and 'hidden' in self.views[field]:
+                value['hidden'] = self.views[field]['hidden']
+                if field in self.hide_zero_fields and self.get_raw()[field] != 0:
+                    value['hidden'] = False
+            else:
+                value['hidden'] = field in self.hide_zero_fields
+            ret[field] = value
+
+ 
+
+    @debounce(0.1) 
+    def manageIf(self, ret, key): 
+        for i in self.get_raw():
+            key = i[self.get_key()]
+            ret[key] = {}
+            for field in listkeys(i):
+                value = {
+                    'decoration': 'DEFAULT',
+                    'optional': False,
+                    'additional': False,
+                    'splittable': False,
+                }
+                # Manage the hidden feature
+                # Allow to automatically hide fields when values is never different than 0
+                # Refactoring done for #2929
+                if not self.hide_zero:
+                    value['hidden'] = False
+                elif key in self.views and field in self.views[key] and 'hidden' in self.views[key][field]:
+                    value['hidden'] = self.views[key][field]['hidden']
+                    if field in self.hide_zero_fields and i[field] != 0:
+                        value['hidden'] = False
+                else:
+                    value['hidden'] = field in self.hide_zero_fields
+                ret[key][field] = value
+
 
     def set_views(self, input_views):
         """Set the views to input_views."""
