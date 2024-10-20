@@ -27,6 +27,8 @@ class GlancesColors:
     
     def __init__(self, args) -> None:
         self.args = args
+        self.__class__.forground = -1
+        self.__class__.background = -1
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -56,6 +58,41 @@ class GlancesColors:
             # switch to B&W text styles
             # ex: export TERM=xterm-mono
             self.__define_bw()
+
+    def __white_init__(self, args) -> None:
+        self.args = args
+        self.__class__.forground = curses.COLOR_BLACK
+        self.__class__.background = curses.COLOR_WHITE
+
+        # Define "home made" bold
+        self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
+
+        # Set defaults curses colors
+        try:
+            if hasattr(curses, 'start_color'):
+                curses.start_color()
+                logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
+            if hasattr(curses, 'use_default_colors'):
+                # Use -1 to use the default foregound/background color
+                curses.use_default_colors()
+            if hasattr(curses, 'assume_default_colors'):
+                # Define the color index 0 with -1 and -1 for foregound/background
+                # = curses.init_pair(0, -1, -1)
+                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
+        except Exception as e:
+            logger.warning(f'Error initializing terminal color ({e})')
+
+        if curses.has_colors():
+            # The screen is compatible with a colored design
+            # ex: export TERM=xterm-256color
+            #     export TERM=xterm-color
+            self.__define_colors()
+        else:
+            # The screen is NOT compatible with a colored design
+            # switch to B&W text styles
+            # ex: export TERM=xterm-mono
+            self.__define_bw()
+
 
     def __repr__(self) -> dict:
         return self.get()
@@ -182,12 +219,10 @@ class GlancesColors:
 
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
-        self.__class__.forground = curses.COLOR_BLACK
-        self.__class__.background = curses.COLOR_WHITE
 
         stdscr.clear()  # Clear the screen to apply the new color
 
-        self.__init__(self.args)
+        self.__white_init__(self.args)
 
         # Apply the new color pair for light mode
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
@@ -209,8 +244,6 @@ class GlancesColors:
         print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-        self.__class__.forground = -1
-        self.__class__.background = -1
 
         stdscr.clear()  # Clear the screen to apply the new color
 
