@@ -88,7 +88,7 @@ class GlancesColors:
             # The screen is compatible with a colored design
             # ex: export TERM=xterm-256color
             #     export TERM=xterm-color
-            self.__define_colors()
+            self.__define_colors_white()
         else:
             # The screen is NOT compatible with a colored design
             # switch to B&W text styles
@@ -98,6 +98,59 @@ class GlancesColors:
 
     def __repr__(self) -> dict:
         return self.get()
+
+    
+    def __define_colors_white(self) -> None:
+        curses.init_pair(1, self.__class__.forground, curses.COLOR_WHITE)
+        if self.args.disable_bg:
+            curses.init_pair(2, curses.COLOR_RED, curses.COLOR_WHITE)
+            curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_WHITE)
+            curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_WHITE)
+        else:
+            curses.init_pair(2, self.__class__.forground, curses.COLOR_RED)
+            curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_GREEN)
+            curses.init_pair(5, self.__class__.forground, curses.COLOR_MAGENTA)
+        curses.init_pair(4, curses.COLOR_BLUE, curses.COLOR_WHITE)
+        curses.init_pair(6, curses.COLOR_RED, curses.COLOR_WHITE)
+        curses.init_pair(7, curses.COLOR_GREEN, curses.COLOR_WHITE)
+        curses.init_pair(8, curses.COLOR_MAGENTA, curses.COLOR_WHITE)
+
+        # Colors text styles
+        self.DEFAULT = curses.color_pair(1)
+        self.OK_LOG = curses.color_pair(3) | self.A_BOLD
+        self.NICE = curses.color_pair(8)
+        self.CPU_TIME = curses.color_pair(8)
+        self.CAREFUL_LOG = curses.color_pair(4) | self.A_BOLD
+        self.WARNING_LOG = curses.color_pair(5) | self.A_BOLD
+        self.CRITICAL_LOG = curses.color_pair(2) | self.A_BOLD
+        self.OK = curses.color_pair(7)
+        self.CAREFUL = curses.color_pair(4)
+        self.WARNING = curses.color_pair(8) | self.A_BOLD
+        self.CRITICAL = curses.color_pair(6) | self.A_BOLD
+        self.INFO = curses.color_pair(4)
+        self.FILTER = self.A_BOLD
+        self.SELECTED = self.A_BOLD
+        self.SEPARATOR = curses.color_pair(1)
+
+        if curses.COLORS > 8:
+            # ex: export TERM=xterm-256color
+            try:
+                curses.init_pair(9, curses.COLOR_CYAN, curses.COLOR_WHITE)
+                curses.init_pair(10, curses.COLOR_YELLOW, curses.COLOR_WHITE)
+            except Exception:
+                curses.init_pair(9, self.__class__.forground, curses.COLOR_WHITE)
+                curses.init_pair(10, self.__class__.forground, curses.COLOR_WHITE)
+            self.FILTER = curses.color_pair(9) | self.A_BOLD
+            self.SELECTED = curses.color_pair(10) | self.A_BOLD
+
+            # Define separator line style
+            try:
+                curses.init_color(11, 500, 500, 500)
+                curses.init_pair(11, self.__class__.forground, curses.COLOR_WHITE)
+                self.SEPARATOR = curses.color_pair(11)
+            except Exception:
+                # Catch exception in TMUX
+                pass
 
     def __define_colors(self) -> None:
         curses.init_pair(1, self.__class__.forground, self.__class__.background)
