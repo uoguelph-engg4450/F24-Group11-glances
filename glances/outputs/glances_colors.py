@@ -64,7 +64,7 @@ class GlancesColors:
         return self.get()
 
     def __define_colors(self) -> None:
-        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        curses.init_pair(1, -1, -1)
         if self.args.disable_bg:
             curses.init_pair(2, curses.COLOR_RED, self.__class__.background)
             curses.init_pair(3, curses.COLOR_GREEN, self.__class__.background)
