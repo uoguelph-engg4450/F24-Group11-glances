@@ -196,6 +196,8 @@ class _GlancesCurses:
 
         # History tag
         self._init_history()
+    
+        self.light_dark_mode = light_dark_mode()
 
     def load_config(self, config):
         """Load the outputs section of the configuration file."""
@@ -235,7 +237,7 @@ class _GlancesCurses:
             except Exception:
                 pass
         
-        self.light_dark_mode = light_dark_mode
+
 
     def get_key(self, window):
         # TODO: Check issue #163
@@ -1221,8 +1223,6 @@ class light_dark_mode:
    
     mode = 'light'
 
-    def light_dark_mode():
-        print("\n\nMyClass is running!")
 
     def run(self):
         logger.info("MyClass is running!")
