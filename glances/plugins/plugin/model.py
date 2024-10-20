@@ -14,8 +14,7 @@ I am your father...
 
 import copy
 import re
-import time
-
+import threading
 
 from glances.actions import GlancesActions
 from glances.events_list import glances_events
@@ -25,7 +24,6 @@ from glances.logger import logger
 from glances.outputs.glances_unicode import unicode_message
 from glances.thresholds import glances_thresholds
 from glances.timer import Counter, Timer, getTimeSinceLastUpdate
-from inspect import signature
 
 fields_unit_short = {'percent': '%'}
 
@@ -500,40 +498,23 @@ class GlancesPluginModel:
 
         return self.views
 
-    def debounce(wait):
-        def decorator(fn):
-            sig = signature(fn)
-            caller = {}
-
+    def debounce(wait_time):
+        def decorator(function):
             def debounced(*args, **kwargs):
-                nonlocal caller
+                def call_function():
+                    debounced._timer = None
+                    return function(*args, **kwargs)
+                # if we already have a call to the function currently waiting to be executed, reset the timer
+                if debounced._timer is not None:
+                    debounced._timer.cancel()
 
-                try:
-                    bound_args = sig.bind(*args, **kwargs)
-                    bound_args.apply_defaults()
-                    called_args = fn.__name__ + str(dict(bound_args.arguments))
-                except:
-                    called_args = ''
+                # after wait_time, call the function provided to the decorator with its arguments
+                debounced._timer = threading.Timer(wait_time, call_function)
+                debounced._timer.start()
 
-                def call_it(key):
-                    try:
-                        # always remove on call
-                        caller.pop(key)
-                    except:
-                        pass
-
-                    fn(*args, **kwargs)
-
-                try:
-                    # Always try to cancel timer
-                    caller[called_args].cancel()
-                except:
-                    pass
-
-                caller[called_args] = Timer(wait, call_it, [called_args])
-                caller[called_args].start()
-
+            debounced._timer = None
             return debounced
+
         return decorator
 
     @debounce(0.1) 
