@@ -41,7 +41,8 @@ class GlancesColors:
                 logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
             if hasattr(curses, 'use_default_colors'):
                 # Use -1 to use the default foregound/background color
-                curses.use_default_colors()
+                curses.init_pair(1, self.__class__.forground, self.__class__.background)
+                curses.color_pair(1)
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
@@ -190,9 +191,11 @@ class GlancesColors:
         self.__class__.background = curses.COLOR_WHITE
         
         # Apply the new color pair for light mode
-        #curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        #stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        
         self.__define_colors()
+        self.__define_bw()
         stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Light Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
@@ -211,11 +214,12 @@ class GlancesColors:
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
         self.__class__.forground = -1
         self.__class__.background = -1
-        
+
         self.__define_colors()
+        self.__define_bw()
         # Apply the new color pair for dark mode
-        #curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        #stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
         stdscr.clear()  # Clear the screen to apply the new color
         #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
         stdscr.refresh()  # Refresh the screen to apply changes
