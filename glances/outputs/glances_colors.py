@@ -24,12 +24,12 @@ class GlancesColors:
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
 
-    forground = -1
-    background = -1
-    mode = 'light'
-
+    
     def __init__(self, args) -> None:
         self.args = args
+        self.forground = -1
+        self.background = -1
+        self.mode = 'light'
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
