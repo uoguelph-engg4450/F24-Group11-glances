@@ -185,7 +185,9 @@ class GlancesColors:
 
 
         # Initialize color pairs (foreground, background)
-        curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+        #curses.assume_default_colors(curses.COLOR_BLACK, curses.COLOR_WHITE)
+        self.__class__.forground = curses.COLOR_BLACK
+        self.__class__.background = curses.COLOR_WHITE
         print("\n\nLight mode")
 
         # Refresh the screen with the new background color
@@ -198,8 +200,9 @@ class GlancesColors:
 
         print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
-        curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-
+        #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
+        self.__class__.forground = -1
+        self.__class__.background = -1
 
         # Refresh the screen with the new background color
         stdscr.refresh()
