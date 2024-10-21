@@ -190,6 +190,18 @@ class GlancesCursesBrowser(_GlancesCurses):
             self._revesed_sorting = True
             self._stats_list = stats.copy()
             refresh = True
+        elif self.pressedkey == ord('`'):
+            super()._handle_backtick()
+
+            _colors_list = {
+                'UNKNOWN': self.colors_list['DEFAULT'],
+                'SNMP': self.colors_list['OK'],
+                'ONLINE': self.colors_list['OK'],
+                'OFFLINE': self.colors_list['CRITICAL'],
+                'PROTECTED': self.colors_list['WARNING'],
+            }
+            self.colors_list.update(_colors_list)
+            refresh = True
 
         if refresh:
             self._current_page = 0
