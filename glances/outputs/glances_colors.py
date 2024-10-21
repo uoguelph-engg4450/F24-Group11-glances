@@ -255,12 +255,12 @@ class GlancesColors:
         stdscr.clear()
         stdscr.refresh()
 
-        # Optionally, display confirmation message
-        stdscr.addstr(0, 0, "Back ground set -- press any key to run text color setting")
-        stdscr.refresh()
+
 
         # Wait for key press to ensure the user sees the changes
         #stdscr.getch()
+        print("background set to in light_mode")
+        print(self.__class__.background)
 
         self.__white_init__(self.args)
 
