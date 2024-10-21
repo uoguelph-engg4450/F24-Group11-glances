@@ -14,7 +14,7 @@ I am your father...
 
 import copy
 import re
-import time
+import threading
 
 from glances.actions import GlancesActions
 from glances.events_list import glances_events
@@ -431,6 +431,26 @@ class GlancesPluginModel:
             return default
         return self.fields_description[item].get(key, default)
 
+    def debounce(wait_time):
+        def decorator(function):
+            def debounced(*args, **kwargs):
+                def call_function():
+                    debounced._timer = None
+                    return function(*args, **kwargs)
+                # if we already have a call to the function currently waiting to be executed, reset the timer
+                if debounced._timer is not None:
+                    debounced._timer.cancel()
+
+                # after wait_time, call the function provided to the decorator with its arguments
+                debounced._timer = threading.Timer(wait_time, call_function)
+                debounced._timer.start()
+
+            debounced._timer = None
+            return debounced
+
+        return decorator
+
+    @debounce(0.2)
     def update_views(self):
         """Update the stats views.
 
@@ -464,7 +484,7 @@ class GlancesPluginModel:
                     # Refactoring done for #2929
                     if not self.hide_zero:
                         value['hidden'] = False
-                    elif key in self.views and field in self.views[key] and 'hidden' in self.views[key][field] and time.localtime().tm_sec % 5 == 0:
+                    elif key in self.views and field in self.views[key] and 'hidden' in self.views[key][field]:
                         value['hidden'] = self.views[key][field]['hidden']
                         if field in self.hide_zero_fields and i[field] != 0:
                             value['hidden'] = False
@@ -487,7 +507,7 @@ class GlancesPluginModel:
                 # Refactoring done for #2929
                 if not self.hide_zero:
                     value['hidden'] = False
-                elif field in self.views and 'hidden' in self.views[field] and time.localtime().tm_sec % 5 == 0:
+                elif field in self.views and 'hidden' in self.views[field]:
                     value['hidden'] = self.views[field]['hidden']
                     if field in self.hide_zero_fields and self.get_raw()[field] != 0:
                         value['hidden'] = False
@@ -498,25 +518,6 @@ class GlancesPluginModel:
         self.views = ret
 
         return self.views
-
-    def debounce(wait_time):
-        def decorator(function):
-            def debounced(*args, **kwargs):
-                def call_function():
-                    debounced._timer = None
-                    return function(*args, **kwargs)
-                # if we already have a call to the function currently waiting to be executed, reset the timer
-                if debounced._timer is not None:
-                    debounced._timer.cancel()
-
-                # after wait_time, call the function provided to the decorator with its arguments
-                debounced._timer = threading.Timer(wait_time, call_function)
-                debounced._timer.start()
-
-            debounced._timer = None
-            return debounced
-
-        return decorator
 
     #@debounce(0.1) 
     def manageElseIf(self, ret): 
