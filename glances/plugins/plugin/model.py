@@ -484,9 +484,9 @@ class GlancesPluginModel:
                 # Manage the hidden feature
                 # Allow to automatically hide fields when values is never different than 0
                 # Refactoring done for #2929
-                if not self.hide_zero:
+                if not self.hide_zero and time.localtime().tm_sec % 5 == 0:
                     value['hidden'] = False
-                elif field in self.views and 'hidden' in self.views[field]:
+                elif field in self.views and 'hidden' in self.views[field] and time.localtime().tm_sec % 5 == 0:
                     value['hidden'] = self.views[field]['hidden']
                     if field in self.hide_zero_fields and self.get_raw()[field] != 0:
                         value['hidden'] = False
