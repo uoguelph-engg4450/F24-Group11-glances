@@ -517,7 +517,7 @@ class GlancesPluginModel:
 
         return decorator
 
-    @debounce(0.1) 
+    #@debounce(0.1) 
     def manageElseIf(self, ret): 
         for field in listkeys(self.get_raw()):
             value = {
@@ -542,7 +542,7 @@ class GlancesPluginModel:
 
  
 
-    @debounce(0.1) 
+    #@debounce(0.1) 
     def manageIf(self, ret, key): 
         for i in self.get_raw():
             key = i[self.get_key()]
