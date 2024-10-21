@@ -191,8 +191,8 @@ class GlancesCursesBrowser(_GlancesCurses):
             self._stats_list = stats.copy()
             refresh = True
         elif self.pressedkey == ord('`'):
-            super()._handle_backtick()
-
+            super()._handle_backtick().KEY_READ
+            
             _colors_list = {
                 'UNKNOWN': self.colors_list['DEFAULT'],
                 'SNMP': self.colors_list['OK'],
@@ -201,7 +201,6 @@ class GlancesCursesBrowser(_GlancesCurses):
                 'PROTECTED': self.colors_list['WARNING'],
             }
             self.colors_list.update(_colors_list)
-            refresh = True
 
         if refresh:
             self._current_page = 0
