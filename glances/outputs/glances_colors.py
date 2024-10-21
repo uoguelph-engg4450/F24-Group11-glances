@@ -231,10 +231,37 @@ class GlancesColors:
             print("light mode before color change")
             curses.wrapper(self.light_mode)
             print("light mode after color change")
+
         print("background in glances_color from get is ")
         colors_list = self.get()
         print(colors_list['SEPARATOR'])
-        return colors_list
+        return {
+            'DEFAULT': self.__class__.background,
+            'UNDERLINE': curses.A_UNDERLINE,
+            'BOLD': self.A_BOLD,
+            'SORT': curses.A_UNDERLINE | self.A_BOLD,
+            'OK': self.__class__.background,
+            'MAX': self.__class__.background | self.A_BOLD,
+            'FILTER': self.FILTER,
+            'TITLE': self.A_BOLD,
+            'PROCESS': self.__class__.background,
+            'PROCESS_SELECTED': self.__class__.background | curses.A_UNDERLINE,
+            'STATUS': self.__class__.background,
+            'NICE': self.NICE,
+            'CPU_TIME': self.CPU_TIME,
+            'CAREFUL': self.CAREFUL,
+            'WARNING': self.WARNING,
+            'CRITICAL': self.CRITICAL,
+            'OK_LOG': self.__class__.background,
+            'CAREFUL_LOG': self.CAREFUL_LOG,
+            'WARNING_LOG': self.WARNING_LOG,
+            'CRITICAL_LOG': self.CRITICAL_LOG,
+            'PASSWORD': curses.A_PROTECT,
+            'SELECTED': self.SELECTED,
+            'INFO': self.INFO,
+            'ERROR': self.SELECTED,
+            'SEPARATOR': self.__class__.background,
+        }
 
 
     def light_mode(self, stdscr):
