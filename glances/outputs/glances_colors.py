@@ -206,12 +206,14 @@ class GlancesColors:
         if self.__class__.mode == 'dark':
             self.__class__.foreground = -1
             self.__class__.background = -1
+            self.__define_bw()
             #set turminal screen black
             curses.wrapper(self.dark_mode)
             print("\n\nDarkmode")
         else:
             self.__class__.foreground = curses.COLOR_BLACK
             self.__class__.background = curses.COLOR_WHITE
+            self.__define_bw()
             #set turminal screen white
             curses.wrapper(self.light_mode)
             print("\n\nlight mode")
