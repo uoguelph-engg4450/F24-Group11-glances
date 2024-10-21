@@ -130,6 +130,8 @@ class _GlancesCurses:
     
     def _handle_backtick(self):
         self.colors_list = self.switcher.switchLDmode()
+        print("background is " + self.colors_list['SEPARATOR'])
+
 
     def __init__(self, config=None, args=None):
         # Init
