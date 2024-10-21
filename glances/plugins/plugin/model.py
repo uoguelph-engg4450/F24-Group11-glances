@@ -476,7 +476,6 @@ class GlancesPluginModel:
                         'optional': False,
                         'additional': False,
                         'splittable': False,
-                        'hidden': False,
                     }
                     # Manage the hidden feature
                     # Allow to automatically hide fields when values is never different than 0
