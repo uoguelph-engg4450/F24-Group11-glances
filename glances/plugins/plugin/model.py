@@ -543,7 +543,7 @@ class GlancesPluginModel:
  
 
     #@debounce(0.1) 
-    def manageIf(self, ret, key): 
+    def manageIf(self, ret): 
         for i in self.get_raw():
             key = i[self.get_key()]
             ret[key] = {}
