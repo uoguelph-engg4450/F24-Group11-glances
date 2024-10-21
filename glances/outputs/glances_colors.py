@@ -218,7 +218,7 @@ class GlancesColors:
             self.__define_bw()
             #set turminal screen black
             print("Darkmode before")
-            curses.wrapper(self.dark_mode)
+            self.__init__(self.args)
             print("Darkmode after")
             
         else:
@@ -229,15 +229,18 @@ class GlancesColors:
             self.__define_bw()
             #set turminal screen white
             print("light mode before color change")
-            curses.wrapper(self.light_mode)
+            self.__white_init__(self.args)
+            print("background set to in light_mode")
+            print(self.__class__.background)
             print("light mode after color change")
+
         print("background in glances_color from get is ")
         colors_list = self.get()
         print(colors_list['SEPARATOR'])
         return colors_list
 
 
-    def light_mode(self, stdscr):
+    #def light_mode(self, stdscr):
         # Start color mode
         # Start color mode
         #curses.start_color()
@@ -246,39 +249,36 @@ class GlancesColors:
         
 
         # Reinitialize the color pair with the new colors
-        curses.init_pair(1, self.__class__.foreground, self.__class__.background)
+        #curses.init_pair(1, self.__class__.foreground, self.__class__.background)
 
         # Apply the new color pair globally to the background
-        stdscr.bkgd(' ', curses.color_pair(1))
+        #stdscr.bkgd(' ', curses.color_pair(1))
 
         # Clear the screen and refresh with new colors
-        stdscr.clear()
-        stdscr.refresh()
+        #stdscr.clear()
+        #stdscr.refresh()
 
 
 
         # Wait for key press to ensure the user sees the changes
         #stdscr.getch()
-        print("background set to in light_mode")
-        print(self.__class__.background)
-
-        self.__white_init__(self.args)
+        
 
 
 
-    def dark_mode(self, stdscr):
+    #def dark_mode(self, stdscr):
         # Start color mode
 
         #print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
 
-        curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
+        #curses.init_pair(1, self.__class__.forground, self.__class__.background)
+        #stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
 
-        stdscr.clear()  # Clear the screen to apply the new color
+        #stdscr.clear()  # Clear the screen to apply the new color
 
-        self.__init__(self.args)
+        #self.__init__(self.args)
 
         
 
