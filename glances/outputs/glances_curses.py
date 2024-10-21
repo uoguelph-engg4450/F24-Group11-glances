@@ -129,8 +129,7 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        self.switcher.switchLDmode()
-        self.colors_list = self.switcher.get()
+        self.colors_list = self.switcher.switchLDmode()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -141,7 +140,7 @@ class _GlancesCurses:
         self.term_w = 80
         self.term_h = 24
 
-        # Space between stats
+        # Space ketween stats
         self.space_between_column = 3
         self.space_between_line = 2
 

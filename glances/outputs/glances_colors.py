@@ -201,7 +201,7 @@ class GlancesColors:
         }
 
 
-    def switchLDmode(self):
+    def switchLDmode(self) -> dict:
         print("\n\nRunning switcher")
         if self.__class__.mode == 'dark':
             #set turminal screen black
@@ -211,6 +211,7 @@ class GlancesColors:
             #set turminal screen white
             curses.wrapper(self.light_mode)
             print("\n\nlight mode")
+        return self.get()
 
 
     def light_mode(self, stdscr):
@@ -263,7 +264,7 @@ class GlancesColors:
         #self.__define_bw()
         # Apply the new color pair for dark mode
         #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
-        stdscr.refresh()  # Refresh the screen to apply changes
+        
         #stdscr.getch()  # Wait for key press
 
         # Refresh the screen with the new background color
