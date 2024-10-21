@@ -238,7 +238,7 @@ class GlancesColors:
         stdscr.refresh()
 
         # Wait for key press to ensure the user sees the changes
-        stdscr.getch()
+        #stdscr.getch()
 
         self.__white_init__(self.args)
 
