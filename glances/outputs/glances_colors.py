@@ -93,7 +93,6 @@ class GlancesColors:
             # The screen is NOT compatible with a colored design
             # switch to B&W text styles
             # ex: export TERM=xterm-mono
-            print("hit bw define in white int")
             self.__define_bw()
 
 
@@ -171,15 +170,10 @@ class GlancesColors:
         self.FILTER = self.A_BOLD
         self.SELECTED = self.A_BOLD
         self.SEPARATOR = self.__class__.background
-        print("background saving in glances_color in bw is ")
-        print(self.__class__.background)
-        print("background in glances_color in bw is ")
-        print(self.SEPARATOR)
+
         
 
     def get(self) -> dict:
-        print("background in glances_color in get is ")
-        print(self.SEPARATOR)
         return {
             'DEFAULT': self.DEFAULT,
             'UNDERLINE': curses.A_UNDERLINE,
@@ -211,14 +205,11 @@ class GlancesColors:
 
     def switchLDmode(self) -> dict:
 
-        print("\n\nRunning switcher")
-
         if self.__class__.mode == 'dark':
             self.__class__.foreground = -1
             self.__class__.background = -1
             self.__define_bw()
             #set turminal screen black
-            print("Darkmode before")
             curses.wrapper(self.dark_mode)
             print("Darkmode after")
             
@@ -228,40 +219,10 @@ class GlancesColors:
             print("background set to")
             print(self.__class__.background)
             #set turminal screen white
-            print("light mode before color change")
             curses.wrapper(self.light_mode)
-            print("light mode after color change")
 
-        print("background in glances_color from get is ")
         colors_list = self.get()
-        print(colors_list['SEPARATOR'])
-        return {
-            'DEFAULT': self.__class__.background,
-            'UNDERLINE': curses.A_UNDERLINE,
-            'BOLD': self.A_BOLD,
-            'SORT': curses.A_UNDERLINE | self.A_BOLD,
-            'OK': self.__class__.background,
-            'MAX': self.__class__.background | self.A_BOLD,
-            'FILTER': self.FILTER,
-            'TITLE': self.A_BOLD,
-            'PROCESS': self.__class__.background,
-            'PROCESS_SELECTED': self.__class__.background | curses.A_UNDERLINE,
-            'STATUS': self.__class__.background,
-            'NICE': self.NICE,
-            'CPU_TIME': self.CPU_TIME,
-            'CAREFUL': self.CAREFUL,
-            'WARNING': self.WARNING,
-            'CRITICAL': self.CRITICAL,
-            'OK_LOG': self.__class__.background,
-            'CAREFUL_LOG': self.CAREFUL_LOG,
-            'WARNING_LOG': self.WARNING_LOG,
-            'CRITICAL_LOG': self.CRITICAL_LOG,
-            'PASSWORD': curses.A_PROTECT,
-            'SELECTED': self.SELECTED,
-            'INFO': self.INFO,
-            'ERROR': self.SELECTED,
-            'SEPARATOR': self.__class__.background,
-        }
+        return colors_list
 
 
     def light_mode(self, stdscr):
