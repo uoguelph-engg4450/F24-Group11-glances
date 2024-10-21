@@ -209,14 +209,18 @@ class GlancesColors:
 
 
     def switchLDmode(self) -> dict:
+
         print("\n\nRunning switcher")
+
         if self.__class__.mode == 'dark':
             self.__class__.foreground = -1
             self.__class__.background = -1
             self.__define_bw()
             #set turminal screen black
+            print("Darkmode before")
             curses.wrapper(self.dark_mode)
-            print("\n\nDarkmode")
+            print("Darkmode after")
+            
         else:
             self.__class__.foreground = curses.COLOR_BLACK
             self.__class__.background = curses.COLOR_WHITE
@@ -224,8 +228,9 @@ class GlancesColors:
             print(self.__class__.background)
             self.__define_bw()
             #set turminal screen white
+            print("light mode before color change")
             curses.wrapper(self.light_mode)
-            print("\n\nlight mode")
+            print("light mode after color change")
         print("background in glances_color from get is ")
         colors_list = self.get()
         print(colors_list['SEPARATOR'])
@@ -235,7 +240,7 @@ class GlancesColors:
     def light_mode(self, stdscr):
         # Start color mode
         # Start color mode
-        curses.start_color()
+        #curses.start_color()
 
         # Set new foreground and background colors
         
@@ -264,7 +269,7 @@ class GlancesColors:
     def dark_mode(self, stdscr):
         # Start color mode
 
-        print("\n\Dark mode mode")
+        #print("\n\Dark mode mode")
         # Initialize color pairs (foreground, background)
         #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
 
