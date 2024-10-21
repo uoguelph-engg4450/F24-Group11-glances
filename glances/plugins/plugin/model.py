@@ -14,7 +14,6 @@ I am your father...
 
 import copy
 import re
-import threading
 
 from glances.actions import GlancesActions
 from glances.events_list import glances_events
@@ -431,24 +430,6 @@ class GlancesPluginModel:
             return default
         return self.fields_description[item].get(key, default)
 
-    def debounce(wait_time):
-        def decorator(function):
-            def debounced(*args, **kwargs):
-                def call_function():
-                    debounced._timer = None
-                    return function(*args, **kwargs)
-                # if we already have a call to the function currently waiting to be executed, reset the timer
-                if debounced._timer is not None:
-                    debounced._timer.cancel()
-
-                # after wait_time, call the function provided to the decorator with its arguments
-                debounced._timer = threading.Timer(wait_time, call_function)
-                debounced._timer.start()
-
-            debounced._timer = None
-            return debounced
-
-        return decorator
 
     def update_views(self):
         """Update the stats views.
@@ -466,7 +447,6 @@ class GlancesPluginModel:
 
         if isinstance(self.get_raw(), list) and self.get_raw() is not None and self.get_key() is not None:
             # Stats are stored in a list of dict (ex: DISKIO, NETWORK, FS...)
-            #self.manageIf(ret)
             for i in self.get_raw():
                 key = i[self.get_key()]
                 ret[key] = {}
@@ -490,7 +470,6 @@ class GlancesPluginModel:
                         value['hidden'] = field in self.hide_zero_fields
                     ret[key][field] = value
         elif isinstance(self.get_raw(), dict) and self.get_raw() is not None:
-            #self.manageElseIf(ret)
             # Stats are stored in a dict (ex: CPU, LOAD...)
             for field in listkeys(self.get_raw()):
                 value = {

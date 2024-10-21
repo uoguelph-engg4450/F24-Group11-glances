@@ -16,7 +16,6 @@ from glances.outputs.glances_bars import Bar
 from glances.outputs.glances_sparklines import Sparkline
 from glances.plugins.load import get_load_average, get_nb_log_core, get_nb_phys_core
 from glances.plugins.plugin.model import GlancesPluginModel
-from time import sleep
 
 # Fields description
 # description: human readable description
