@@ -170,8 +170,13 @@ class GlancesColors:
         self.FILTER = self.A_BOLD
         self.SELECTED = self.A_BOLD
         self.SEPARATOR = self.__class__.background
+        print("background in glances_color in bw is ")
+        print(self.SEPARATOR)
+        
 
     def get(self) -> dict:
+        print("background in glances_color in get is ")
+        print(self.SEPARATOR)
         return {
             'DEFAULT': self.DEFAULT,
             'UNDERLINE': curses.A_UNDERLINE,
@@ -217,7 +222,7 @@ class GlancesColors:
             #set turminal screen white
             curses.wrapper(self.light_mode)
             print("\n\nlight mode")
-        print("background in glances_color is ")
+        print("background in glances_color from get is ")
         colors_list = self.get()
         print(colors_list['SEPARATOR'])
         return colors_list
