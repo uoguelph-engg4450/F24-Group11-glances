@@ -130,6 +130,7 @@ class _GlancesCurses:
     
     def _handle_backtick(self):
         self.switcher.switchLDmode()
+        self.colors_list = self.switcher.get()
 
     def __init__(self, config=None, args=None):
         # Init
