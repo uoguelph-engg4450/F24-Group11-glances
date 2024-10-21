@@ -170,6 +170,8 @@ class GlancesColors:
         self.FILTER = self.A_BOLD
         self.SELECTED = self.A_BOLD
         self.SEPARATOR = self.__class__.background
+        print("background saving in glances_color in bw is ")
+        print(self.__class__.background)
         print("background in glances_color in bw is ")
         print(self.SEPARATOR)
         
@@ -218,6 +220,8 @@ class GlancesColors:
         else:
             self.__class__.foreground = curses.COLOR_BLACK
             self.__class__.background = curses.COLOR_WHITE
+            print("background set to")
+            print(self.__class__.background)
             self.__define_bw()
             #set turminal screen white
             curses.wrapper(self.light_mode)
