@@ -463,7 +463,7 @@ class GlancesPluginModel:
                         value['hidden'] = False
                     elif key in self.views and field in self.views[key] and 'hidden' in self.views[key][field]:
                         value['hidden'] = self.views[key][field]['hidden']
-                        if field in self.hide_zero_fields and i[field] != 0:
+                        if field in self.hide_zero_fields and i[field] >= 14000:
                             value['hidden'] = False
                     else:
                         value['hidden'] = field in self.hide_zero_fields
@@ -485,7 +485,7 @@ class GlancesPluginModel:
                     value['hidden'] = False
                 elif field in self.views and 'hidden' in self.views[field]:
                     value['hidden'] = self.views[field]['hidden']
-                    if field in self.hide_zero_fields and self.get_raw()[field] != 0:
+                    if field in self.hide_zero_fields and self.get_raw()[field] >= 14000:
                         value['hidden'] = False
                 else:
                     value['hidden'] = field in self.hide_zero_fields
