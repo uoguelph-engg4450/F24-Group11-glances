@@ -455,6 +455,7 @@ class GlancesPluginModel:
                         'optional': False,
                         'additional': False,
                         'splittable': False,
+                        'hidden': True,
                     }
                     # Manage the hidden feature
                     # Allow to automatically hide fields when values is never different than 0
@@ -476,7 +477,7 @@ class GlancesPluginModel:
                     'optional': False,
                     'additional': False,
                     'splittable': False,
-                    'hidden': False,
+                    'hidden': True,
                 }
                 # Manage the hidden feature
                 # Allow to automatically hide fields when values is never different than 0
