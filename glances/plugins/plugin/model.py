@@ -450,7 +450,6 @@ class GlancesPluginModel:
 
         return decorator
 
-    @debounce(0.1)
     def update_views(self):
         """Update the stats views.
 
