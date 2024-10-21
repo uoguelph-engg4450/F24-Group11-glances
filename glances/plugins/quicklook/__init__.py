@@ -153,7 +153,7 @@ class PluginModel(GlancesPluginModel):
         """Update stats views."""
         # Call the father's method
         super().update_views()
-        sleep(1)
+        sleep(0.3)
 
         # Alert for CPU, MEM and SWAP
         for key in self.stats_list:
