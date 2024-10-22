@@ -141,7 +141,7 @@ class _GlancesCurses:
             #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
             self.light_mode = True
         #self.screen.refresh()
-        self.__init__()
+        self.__init__(self.config, self.args)
 
     def __init__(self, config=None, args=None):
         # Init
