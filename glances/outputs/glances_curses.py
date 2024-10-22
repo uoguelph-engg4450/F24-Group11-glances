@@ -129,10 +129,12 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        self.colors_list = self.switcher.switchLDmode()
-        print("background is ")
-        print(self.colors_list['SEPARATOR'])
-
+        #self.colors_list = self.switcher.switchLDmode()
+        if self.light_mode:
+            self.colors_list = GlancesColors.__white_init__(self.args)
+        else:
+            self.colors_list = GlancesColors(self.args).get()
+        self.screen.refresh()
 
     def __init__(self, config=None, args=None):
         # Init
@@ -200,7 +202,7 @@ class _GlancesCurses:
         # History tag
         self._init_history()
 
-        self.switcher = GlancesColors(args)
+        self.light_mode = False
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""

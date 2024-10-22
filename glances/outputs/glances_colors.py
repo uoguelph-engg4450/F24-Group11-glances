@@ -60,7 +60,7 @@ class GlancesColors:
             # ex: export TERM=xterm-mono
             self.__define_bw()
 
-    def __white_init__(self, args) -> None:
+    def __white_init__(self, args) -> dict:
         self.args = args
         self.__class__.forground = curses.COLOR_BLACK
         self.__class__.background = curses.COLOR_WHITE
@@ -95,6 +95,7 @@ class GlancesColors:
             # ex: export TERM=xterm-mono
             self.__define_bw()
 
+        return self.get()
 
     def __repr__(self) -> dict:
         return self.get()
@@ -238,7 +239,7 @@ class GlancesColors:
 
         # Apply the new color pair globally to the background
         stdscr.bkgd(' ', curses.color_pair(1))
-
+        
         # Clear the screen and refresh with new colors
         stdscr.clear()
         stdscr.refresh()
