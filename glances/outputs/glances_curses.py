@@ -131,10 +131,10 @@ class _GlancesCurses:
     def _handle_backtick(self):
         #self.colors_list = self.switcher.switchLDmode()
         if self.light_mode:
-            self.colors_list = GlancesColors.__white_init__(self.args)
+            self.colors_list = GlancesColors(self.args, True).get()
             self.light_mode = False
         else:
-            self.colors_list = GlancesColors(self.args).get()
+            self.colors_list = GlancesColors(self.args, False).get()
             self.light_mode = True
         self.screen.refresh()
 
@@ -175,7 +175,7 @@ class _GlancesCurses:
         self._init_cursor()
 
         # Init the colors
-        self.colors_list = GlancesColors(args).get()
+        self.colors_list = GlancesColors(args, False).get()
 
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
@@ -204,7 +204,7 @@ class _GlancesCurses:
         # History tag
         self._init_history()
 
-        self.light_mode = False
+        self.light_mode = True
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""

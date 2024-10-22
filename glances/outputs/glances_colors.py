@@ -25,11 +25,16 @@ class GlancesColors:
     But will be used in the WebUI through the issue #2048"""
     
     
-    def __init__(self, args) -> None:
+    def __init__(self, args, light_mode) -> None:
         self.args = args
-        self.__class__.forground = -1
-        self.__class__.background = -1
         self.__class__.mode = 'light'
+
+        if light_mode:
+            self.__class__.forground = curses.COLOR_BLACK
+            self.__class__.background = curses.COLOR_WHITE
+        else:
+            self.__class__.forground = -1
+            self.__class__.background = -1
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
