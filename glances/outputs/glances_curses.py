@@ -132,8 +132,10 @@ class _GlancesCurses:
         #self.colors_list = self.switcher.switchLDmode()
         if self.light_mode:
             self.colors_list = GlancesColors.__white_init__(self.args)
+            self.light_mode = False
         else:
             self.colors_list = GlancesColors(self.args).get()
+            self.light_mode = True
         self.screen.refresh()
 
     def __init__(self, config=None, args=None):
