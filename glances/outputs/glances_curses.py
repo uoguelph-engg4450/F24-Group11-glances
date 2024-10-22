@@ -132,9 +132,13 @@ class _GlancesCurses:
         #self.colors_list = self.switcher.switchLDmode()
         if self.light_mode:
             self.colors_list = GlancesColors(self.args, True).get()
+            curses.init_pair(1, self.__class__.forground, self.__class__.background)
+            self.screen.bkgd(' ', curses.color_pair(1))  # Set the new background color
             self.light_mode = False
         else:
             self.colors_list = GlancesColors(self.args, False).get()
+            curses.init_pair(1, -1, -1)
+            self.screen.bkgd(' ', curses.color_pair(1))  # Set the new background color
             self.light_mode = True
         self.screen.refresh()
 

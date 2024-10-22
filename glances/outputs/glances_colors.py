@@ -27,7 +27,6 @@ class GlancesColors:
     
     def __init__(self, args, light_mode) -> None:
         self.args = args
-        self.__class__.mode = 'light'
 
         if light_mode:
             self.__class__.forground = curses.COLOR_BLACK
@@ -64,43 +63,6 @@ class GlancesColors:
             # switch to B&W text styles
             # ex: export TERM=xterm-mono
             self.__define_bw()
-
-    def __white_init__(self, args) -> dict:
-        self.args = args
-        self.__class__.forground = curses.COLOR_BLACK
-        self.__class__.background = curses.COLOR_WHITE
-        self.__class__.mode = 'dark'
-
-        # Define "home made" bold
-        self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
-
-        # Set defaults curses colors
-        try:
-            if hasattr(curses, 'start_color'):
-                curses.start_color()
-                logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
-            if hasattr(curses, 'use_default_colors'):
-                # Use -1 to use the default foregound/background color
-                curses.use_default_colors()
-            if hasattr(curses, 'assume_default_colors'):
-                # Define the color index 0 with -1 and -1 for foregound/background
-                # = curses.init_pair(0, -1, -1)
-                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
-        except Exception as e:
-            logger.warning(f'Error initializing terminal color ({e})')
-
-        if curses.has_colors():
-            # The screen is compatible with a colored design
-            # ex: export TERM=xterm-256color
-            #     export TERM=xterm-color
-            self.__define_colors()
-        else:
-            # The screen is NOT compatible with a colored design
-            # switch to B&W text styles
-            # ex: export TERM=xterm-mono
-            self.__define_bw()
-
-        return self.get()
 
     def __repr__(self) -> dict:
         return self.get()
@@ -207,81 +169,3 @@ class GlancesColors:
             'ERROR': self.SELECTED,
             'SEPARATOR': self.SEPARATOR,
         }
-
-
-    def switchLDmode(self) -> dict:
-
-        if self.__class__.mode == 'dark':
-            self.__class__.foreground = -1
-            self.__class__.background = -1
-            self.__define_bw()
-            #set turminal screen black
-            curses.wrapper(self.dark_mode)
-            print("Darkmode after")
-            
-        else:
-            self.__class__.foreground = curses.COLOR_BLACK
-            self.__class__.background = curses.COLOR_WHITE
-            print("background set to")
-            print(self.__class__.background)
-            #set turminal screen white
-            curses.wrapper(self.light_mode)
-
-        colors_list = self.get()
-        return colors_list
-
-
-    def light_mode(self, stdscr):
-        # Start color mode
-        # Start color mode
-        #curses.start_color()
-
-        # Set new foreground and background colors
-        
-
-        # Reinitialize the color pair with the new colors
-        curses.init_pair(1, self.__class__.foreground, self.__class__.background)
-
-        # Apply the new color pair globally to the background
-        stdscr.bkgd(' ', curses.color_pair(1))
-        
-        # Clear the screen and refresh with new colors
-        stdscr.clear()
-        stdscr.refresh()
-
-
-
-        # Wait for key press to ensure the user sees the changes
-        #stdscr.getch()
-        print("background set to in light_mode")
-        print(self.__class__.background)
-
-        self.__white_init__(self.args)
-
-
-
-    def dark_mode(self, stdscr):
-        # Start color mode
-
-        #print("\n\Dark mode mode")
-        # Initialize color pairs (foreground, background)
-        #curses.assume_default_colors(curses.COLOR_WHITE, curses.COLOR_BLACK)
-
-        curses.init_pair(1, self.__class__.forground, self.__class__.background)
-        stdscr.bkgd(' ', curses.color_pair(1))  # Set the new background color
-
-        stdscr.clear()  # Clear the screen to apply the new color
-
-        self.__init__(self.args)
-
-        
-
-        #self.__define_colors()
-        #self.__define_bw()
-        # Apply the new color pair for dark mode
-        #stdscr.addstr(0, 0, "Switched to Dark Mode")  # Test text
-        
-        #stdscr.getch()  # Wait for key press
-
-        # Refresh the screen with the new background color
-        #stdscr.refresh()
