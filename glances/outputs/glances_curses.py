@@ -134,6 +134,8 @@ class _GlancesCurses:
             self.light_mode = False
         else:
             self.light_mode = True
+        self.edit_filter = True
+        self.end()
         self.__init__(self.config, self.args)
 
     def __init__(self, config=None, args=None):
