@@ -175,17 +175,20 @@ class _GlancesCurses:
         # Init the colors
         try:
             if self.light_mode:
+                self.screen.clear()
                 self.colors_list = GlancesColors(args, True).get()
+                self.screen.refresh()
                 #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
                 #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
             else:
+                self.screen.clear()
                 self.colors_list = GlancesColors(args, False).get()
+                self.screen.refresh()
                 #curses.init_pair(1, -1, -1)
                 #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
         except Exception as e:
             self.colors_list = GlancesColors(args, False).get()
             self.light_mode = True
-            
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
 
