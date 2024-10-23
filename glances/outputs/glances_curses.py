@@ -131,13 +131,12 @@ class _GlancesCurses:
     
     def _handle_backtick(self):
         #self.colors_list = self.switcher.switchLDmode()
-        if self.light_mode:
-            self.light_mode = False
+        if self.__class__.light_mode:
+            self.__class__.light_mode = False
         else:
-            self.light_mode = True
-        self.edit_filter = True
-        self.end()
-        GlancesClientBrowser()
+            self.__class__.light_mode = True
+        curses.endwin()
+        self.screen = curses.initscr()
         #self.__init__(self.config, self.args)
         #GlancesCursesBrowser(self)
 
@@ -179,7 +178,7 @@ class _GlancesCurses:
 
         # Init the colors
         try:
-            if self.light_mode:
+            if self.__class__.light_mode:
                 self.screen.clear()
                 self.colors_list = GlancesColors(args, True).get()
                 self.screen.refresh()
@@ -193,7 +192,7 @@ class _GlancesCurses:
                 #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
         except:
             self.colors_list = GlancesColors(args, False).get()
-            self.light_mode = True
+            self.__class__.light_mode = True
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
 
