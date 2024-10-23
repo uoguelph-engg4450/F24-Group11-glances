@@ -68,19 +68,19 @@ class GlancesColors:
         return self.get()
 
     def __define_colors(self) -> None:
-        curses.init_pair(1, self.__class__.forground, curses.COLOR_RED)
+        curses.init_pair(1, self.__class__.forground, self.__class__.background)
         if self.args.disable_bg:
-            curses.init_pair(2, curses.COLOR_RED, curses.COLOR_YELLOW)
-            curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_CYAN)
-            curses.init_pair(5, curses.COLOR_MAGENTA, curses.COLOR_MAGENTA)
+            curses.init_pair(2, curses.COLOR_RED, self.__class__.background)
+            curses.init_pair(3, curses.COLOR_GREEN, self.__class__.background)
+            curses.init_pair(5, curses.COLOR_MAGENTA, self.__class__.backgroundA)
         else:
-            curses.init_pair(2, self.__class__.forground, curses.COLOR_BLUE)
+            curses.init_pair(2, self.__class__.forground, self.__class__.background)
             curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_GREEN)
             curses.init_pair(5, self.__class__.forground, curses.COLOR_MAGENTA)
-        curses.init_pair(4, curses.COLOR_BLUE, curses.COLOR_BLACK)
-        curses.init_pair(6, curses.COLOR_RED, curses.COLOR_WHITE)
-        curses.init_pair(7, curses.COLOR_GREEN, curses.COLOR_BLACK)
-        curses.init_pair(8, curses.COLOR_MAGENTA, curses.COLOR_WHITE)
+        curses.init_pair(4, curses.COLOR_BLUE, self.__class__.background)
+        curses.init_pair(6, curses.COLOR_RED, self.__class__.background)
+        curses.init_pair(7, curses.COLOR_GREEN, self.__class__.background)
+        curses.init_pair(8, curses.COLOR_MAGENTA, self.__class__.background)
 
         # Colors text styles
         self.DEFAULT = curses.color_pair(1)
@@ -113,7 +113,7 @@ class GlancesColors:
             # Define separator line style
             try:
                 curses.init_color(11, 500, 500, 500)
-                curses.init_pair(11, self.__class__.forground, self.__class__.background)
+                curses.init_pair(11, self.__class__.forground, curses.COLOR_BLUE)
                 self.SEPARATOR = curses.color_pair(11)
             except Exception:
                 # Catch exception in TMUX
