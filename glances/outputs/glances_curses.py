@@ -186,7 +186,7 @@ class _GlancesCurses:
                 self.screen.refresh()
                 #curses.init_pair(1, -1, -1)
                 #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
-        except Exception as e:
+        except:
             self.colors_list = GlancesColors(args, False).get()
             self.light_mode = True
         # Init main window
