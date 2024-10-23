@@ -173,15 +173,19 @@ class _GlancesCurses:
         self._init_cursor()
 
         # Init the colors
-        if self.light_mode:
-            self.colors_list = GlancesColors(args, True).get()
-            #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
-            #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
-        else:
+        try:
+            if self.light_mode:
+                self.colors_list = GlancesColors(args, True).get()
+                #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
+                #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
+            else:
+                self.colors_list = GlancesColors(args, False).get()
+                #curses.init_pair(1, -1, -1)
+                #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
+        except Exception as e:
             self.colors_list = GlancesColors(args, False).get()
-            #curses.init_pair(1, -1, -1)
-            #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
-
+            self.light_mode = True
+            
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
 
@@ -208,8 +212,6 @@ class _GlancesCurses:
 
         # History tag
         self._init_history()
-
-        self.light_mode = True
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""

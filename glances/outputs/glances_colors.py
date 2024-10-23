@@ -169,3 +169,4 @@ class GlancesColors:
             'ERROR': self.SELECTED,
             'SEPARATOR': self.SEPARATOR,
         }
+    
