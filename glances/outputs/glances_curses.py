@@ -137,7 +137,6 @@ class _GlancesCurses:
         self.edit_filter = True
         self.end()
         self.__init__(self.config, self.args)
-        self.update()
 
     def __init__(self, config=None, args=None):
         # Init
