@@ -179,19 +179,22 @@ class _GlancesCurses:
         try:
             if self.__class__.light_mode:
                 self.screen.clear()
-                self.colors_list = GlancesColors(args, True).get()
+                self.__class__.colors_list = GlancesColors(args, True).get()
                 self.screen.refresh()
                 #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
                 #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
             else:
                 self.screen.clear()
-                self.colors_list = GlancesColors(args, False).get()
+                self.__class__.colors_list = GlancesColors(args, False).get()
                 self.screen.refresh()
                 #curses.init_pair(1, -1, -1)
                 #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
         except:
-            self.colors_list = GlancesColors(args, False).get()
+            self.__class__.colors_list = GlancesColors(args, False).get()
             self.__class__.light_mode = True
+
+        print("background colour: " + self.__class__.colors_list['SEPARATOR'])
+
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
 
@@ -482,7 +485,7 @@ class _GlancesCurses:
         line_width = self.term_window.getmaxyx()[1] - self.column
         if self.line >= 0 and self.line < self.term_window.getmaxyx()[0]:
             position = [self.line, self.column]
-            line_color = self.colors_list[color]
+            line_color = self.__class__.colors_list[color]
             line_type = curses.ACS_HLINE if not self.args.disable_unicode else unicode_message('MEDIUM_LINE', self.args)
             self.term_window.hline(
                 *position,
@@ -905,7 +908,7 @@ class _GlancesCurses:
             logger.info(is_password)
             # Create a sub-window for the text field
             sub_pop = popup.derwin(1, input_size, 2, 2 + len(m))
-            sub_pop.attron(self.colors_list['FILTER'])
+            sub_pop.attron(self.__class__.colors_list['FILTER'])
             # Init the field with the current value
             if input_value is not None:
                 sub_pop.addnstr(0, 0, input_value, len(input_value))
@@ -933,7 +936,7 @@ class _GlancesCurses:
         if popup_type == 'yesno':
             # # Create a sub-window for the text field
             sub_pop = popup.derwin(1, 2, len(sentence_list) + 1, len(m) + 2)
-            sub_pop.attron(self.colors_list['FILTER'])
+            sub_pop.attron(self.__class__.colors_list['FILTER'])
             # Init the field with the current value
             sub_pop.addnstr(0, 0, '', 0)
             # Display the popup
@@ -991,7 +994,7 @@ class _GlancesCurses:
             m['msg'],
             # Do not display outside the screen
             screen_x - x,
-            self.colors_list[m['decoration']],
+            self.__class__.colors_list[m['decoration']],
         )
 
     def display_stats(self, plugin_stats, init, helper):
