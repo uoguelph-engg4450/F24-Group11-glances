@@ -178,12 +178,14 @@ class _GlancesCurses:
         # Init the colors
         try:
             if self.__class__.light_mode:
+                print("light mode")
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, True).get()
                 self.screen.refresh()
                 #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
                 #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
             else:
+                print("dark mode")
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, False).get()
                 self.screen.refresh()
