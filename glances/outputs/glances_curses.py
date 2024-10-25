@@ -193,7 +193,8 @@ class _GlancesCurses:
             self.__class__.colors_list = GlancesColors(args, False).get()
             self.__class__.light_mode = True
 
-        print("background colour: " + self.__class__.colors_list['SEPARATOR'])
+        print("background colour: ")
+        print(self.__class__.colors_list['SEPARATOR'])
 
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
