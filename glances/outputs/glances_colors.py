@@ -112,7 +112,7 @@ class GlancesColors:
 
             # Define separator line style
             try:
-                curses.init_color(11, 500, 500, 500)
+                #curses.init_color(11, 500, 500, 500)
                 curses.init_pair(11, self.__class__.forground, self.__class__.background)
                 self.SEPARATOR = curses.color_pair(11)
             except Exception:
