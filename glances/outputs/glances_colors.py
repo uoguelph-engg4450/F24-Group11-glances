@@ -32,8 +32,8 @@ class GlancesColors:
             self.__class__.forground = curses.COLOR_BLACK
             self.__class__.background = curses.COLOR_WHITE
         else:
-            self.__class__.forground = -1
-            self.__class__.background = -1
+            self.__class__.forground = curses.COLOR_BLACK
+            self.__class__.background = curses.COLOR_WHITE
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
