@@ -26,7 +26,6 @@ class GlancesColors:
     
     def fill_background(self, stdscr):
         stdscr.bkgd(' ', curses.color_pair(1))  # Fill screen with the default background
-        #stdscr.clear()  # Clear the screen to apply the background color immediately
 
     
     def __init__(self, args, stdscr, light_mode) -> None:
