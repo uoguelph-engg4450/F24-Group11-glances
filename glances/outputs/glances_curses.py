@@ -174,12 +174,10 @@ class _GlancesCurses:
         # Init the colors
         try:
             if self.__class__.light_mode:
-                print("light mode")
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, self.screen, True).get()
                 self.screen.refresh()
             else:
-                print("dark mode")
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, self.screen, False).get()
                 self.screen.refresh()
@@ -187,8 +185,6 @@ class _GlancesCurses:
             self.__class__.colors_list = GlancesColors(args, self.screen, False).get()
             self.__class__.light_mode = False
 
-        print("background colour: ")
-        print(self.__class__.colors_list['SEPARATOR'])
 
         # Init main window
         self.term_window = self.screen.subwin(0, 0)
