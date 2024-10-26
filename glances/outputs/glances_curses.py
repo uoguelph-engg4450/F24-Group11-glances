@@ -129,15 +129,11 @@ class _GlancesCurses:
     _right_sidebar = ['vms', 'containers', 'processcount', 'amps', 'processlist', 'alert']
     
     def _handle_backtick(self):
-        #self.colors_list = self.switcher.switchLDmode()
         if self.__class__.light_mode:
             self.__class__.light_mode = False
         else:
             self.__class__.light_mode = True
-        #curses.endwin()
-        #self.screen = curses.initscr()
         self.__init__(self.config, self.args)
-        #GlancesCursesBrowser(self)
 
     def __init__(self, config=None, args=None):
         # Init
@@ -182,19 +178,11 @@ class _GlancesCurses:
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, self.screen, True).get()
                 self.screen.refresh()
-                #curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_WHITE)
-                #self.screen.bkgdset(' ', curses.color_pair(1) | curses.A_REVERSE)  # Set the new background color
-                sys.stdout.write(f"\033[7m")
-                sys.stdout.flush()
             else:
                 print("dark mode")
                 self.screen.clear()
                 self.__class__.colors_list = GlancesColors(args, self.screen, False).get()
                 self.screen.refresh()
-                #curses.init_pair(1, -1, -1)
-                #self.screen.bkgdset(' ', curses.color_pair(1))  # Set the new background color
-                sys.stdout.write("\033[0m")
-                sys.stdout.flush()
         except:
             self.__class__.colors_list = GlancesColors(args, self.screen, False).get()
             self.__class__.light_mode = False

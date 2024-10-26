@@ -54,7 +54,6 @@ class GlancesColors:
 
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
-                # = curses.init_pair(0, -1, -1)
                 curses.assume_default_colors(self.__class__.forground, self.__class__.background)
         except Exception as e:
             logger.warning(f'Error initializing terminal color ({e})')
@@ -132,21 +131,21 @@ class GlancesColors:
         # The screen is NOT compatible with a colored design
         # switch to B&W text styles
         # ex: export TERM=xterm-mono
-        self.DEFAULT = self.__class__.background
-        self.OK_LOG = self.__class__.background
+        self.DEFAULT = -1
+        self.OK_LOG = -1
         self.NICE = self.A_BOLD
         self.CPU_TIME = self.A_BOLD
         self.CAREFUL_LOG = self.A_BOLD
         self.WARNING_LOG = curses.A_UNDERLINE
         self.CRITICAL_LOG = curses.A_REVERSE
-        self.OK = self.__class__.background
+        self.OK = -1
         self.CAREFUL = self.A_BOLD
         self.WARNING = curses.A_UNDERLINE
         self.CRITICAL = curses.A_REVERSE
         self.INFO = self.A_BOLD
         self.FILTER = self.A_BOLD
         self.SELECTED = self.A_BOLD
-        self.SEPARATOR = self.__class__.background
+        self.SEPARATOR = -1
 
         
 
