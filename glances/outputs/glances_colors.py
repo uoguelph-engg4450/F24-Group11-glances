@@ -24,8 +24,12 @@ class GlancesColors:
     For the moment limited to Curses interface.
     But will be used in the WebUI through the issue #2048"""
     
+    def fill_background(self, stdscr):
+        stdscr.bkgd(' ', curses.color_pair(1))  # Fill screen with the default background
+        stdscr.clear()  # Clear the screen to apply the background color immediately
+
     
-    def __init__(self, args, light_mode) -> None:
+    def __init__(self, args, stdscr, light_mode) -> None:
         self.args = args
 
         if light_mode:
@@ -47,6 +51,7 @@ class GlancesColors:
             if hasattr(curses, 'use_default_colors'):
                 # Use -1 to use the default foregound/background color
                 curses.use_default_colors()
+
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
@@ -59,6 +64,9 @@ class GlancesColors:
             # ex: export TERM=xterm-256color
             #     export TERM=xterm-color
             self.__define_colors()
+
+            # Fill background color after defining colors
+            self.fill_background(stdscr)
         else:
             # The screen is NOT compatible with a colored design
             # switch to B&W text styles
