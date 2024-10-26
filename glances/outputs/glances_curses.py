@@ -134,8 +134,8 @@ class _GlancesCurses:
             self.__class__.light_mode = False
         else:
             self.__class__.light_mode = True
-        curses.endwin()
-        self.screen = curses.initscr()
+        #curses.endwin()
+        #self.screen = curses.initscr()
         self.__init__(self.config, self.args)
         #GlancesCursesBrowser(self)
 
