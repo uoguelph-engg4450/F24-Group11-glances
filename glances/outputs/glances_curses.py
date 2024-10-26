@@ -197,7 +197,7 @@ class _GlancesCurses:
                 sys.stdout.flush()
         except:
             self.__class__.colors_list = GlancesColors(args, False).get()
-            self.__class__.light_mode = True
+            self.__class__.light_mode = False
 
         print("background colour: ")
         print(self.__class__.colors_list['SEPARATOR'])
