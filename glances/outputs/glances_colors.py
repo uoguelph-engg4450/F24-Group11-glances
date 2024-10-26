@@ -32,8 +32,8 @@ class GlancesColors:
             self.__class__.forground = curses.COLOR_BLACK
             self.__class__.background = curses.COLOR_WHITE
         else:
-            self.__class__.forground = curses.COLOR_BLACK
-            self.__class__.background = curses.COLOR_WHITE
+            self.__class__.forground = -1
+            self.__class__.background = -1
 
         # Define "home made" bold
         self.A_BOLD = 0 if args.disable_bold else curses.A_BOLD
@@ -45,7 +45,7 @@ class GlancesColors:
                 logger.debug(f'Curses interface compatible with {curses.COLORS} colors')
             if hasattr(curses, 'use_default_colors'):
                 # Use -1 to use the default foregound/background color
-                curses.use_default_colors()
+                curses.assume_default_colors(self.__class__.forground, self.__class__.background)
             if hasattr(curses, 'assume_default_colors'):
                 # Define the color index 0 with -1 and -1 for foregound/background
                 # = curses.init_pair(0, -1, -1)
