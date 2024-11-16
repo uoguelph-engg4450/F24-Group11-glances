@@ -10,6 +10,7 @@
 
 import getpass
 import sys
+import matplotlib.pyplot as plt
 
 from glances.events_list import glances_events
 from glances.globals import MACOS, WINDOWS, disable, enable, itervalues, nativestr, u
@@ -18,7 +19,7 @@ from glances.outputs.glances_colors import GlancesColors
 from glances.outputs.glances_unicode import unicode_message
 from glances.processes import glances_processes, sort_processes_key_list
 from glances.timer import Timer
-
+from glances.history import GlancesHistory  # Import the GlancesHistory class
 # Import curses library for "normal" operating system
 try:
     import curses
@@ -92,6 +93,7 @@ class _GlancesCurses:
         '+': {'handler': '_handle_increase_nice'},
         '-': {'handler': '_handle_decrease_nice'},
         '`': {'handler': '_handle_backtick'},
+        '~': {'handler': '_handle_til'},
         # "<" (left arrow) navigation through process sort
         # ">" (right arrow) navigation through process sort
         # 'UP' > Up in the server list
@@ -134,6 +136,25 @@ class _GlancesCurses:
         else:
             self.__class__.light_mode = True
         self.__init__(self.config, self.args)
+
+    def _handle_til(self):
+        cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
+        gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
+        x = [1,2,3,4,10,12,15,24,26,27,28,29]
+        # plotting the points 
+        plt.plot(x, cpu_history)
+
+        # naming the x axis
+        plt.xlabel("timer(milliseconds)")
+        # naming the y axis
+        plt.ylabel('CPU Usage (%)')
+
+        # giving a title to my graph
+        plt.title('CPU Usage v Time')
+
+        # function to show the plot
+        plt.show()
+
 
     def __init__(self, config=None, args=None):
         # Init
@@ -212,6 +233,7 @@ class _GlancesCurses:
 
         # History tag
         self._init_history()
+        self.history = GlancesHistory()  # Initialize the history manager
         
     def load_config(self, config):
         """Load the outputs section of the configuration file."""
