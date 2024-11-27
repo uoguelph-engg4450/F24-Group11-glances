@@ -142,10 +142,10 @@ class _GlancesCurses:
         self.__init__(self.config, self.args)
 
     def _handle_til(self):
-        # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
+        cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
         # Data
-        cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
+        # cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
         x = [1, 2, 3, 4, 10, 12, 15, 24, 26, 27, 28, 29]
 
         # Plotting the points
@@ -165,7 +165,7 @@ class _GlancesCurses:
 
         # Show the plot
         plt.show()
-
+        plt.plot(x, cpu_history)
         try:
             # Attempt to open on Linux (WSL or native Linux)
             if platform.system() == "Linux":
@@ -173,7 +173,7 @@ class _GlancesCurses:
                 try:
                     subprocess.run(["xdg-open", file_path], check=True)
                 except Exception as e3:
-                    subprocess.run(["explorer.exe", file_path], check=True)
+                    subprocess.run(["explorer.exe", file_path])
             else:
                 raise OSError("Not running on Linux")
         except Exception as e:
