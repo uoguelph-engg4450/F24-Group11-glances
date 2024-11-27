@@ -11,7 +11,7 @@
 import getpass
 import sys
 import matplotlib.pyplot as plt
-import os
+from PIL import Image
 
 from glances.events_list import glances_events
 from glances.globals import MACOS, WINDOWS, disable, enable, itervalues, nativestr, u
@@ -141,7 +141,7 @@ class _GlancesCurses:
     def _handle_til(self):
         # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
-        cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 506]
+        cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
         x = [1,2,3,4,10,12,15,24,26,27,28,29]
         # plotting the points 
         plt.plot(x, cpu_history)
@@ -157,12 +157,14 @@ class _GlancesCurses:
         # function to show the plot
         plt.show()
 
-        # Determine the path to the Downloads folder
-        downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-        file_path = os.path.join(downloads_folder, "plot.png")  # Save as plot.png in Downloads
-
         # Save the plot
-        plt.savefig(file_path)
+        plt.savefig("plot.png")
+
+        # Open the image
+        img = Image.open("plot.png")
+
+        # Display the image
+        img.show()
 
 
 
