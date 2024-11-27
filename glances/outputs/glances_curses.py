@@ -172,7 +172,7 @@ class _GlancesCurses:
         try:
             # Attempt to open on Linux (WSL or native Linux)
             if platform.system() == "Linux":
-                print("Attempting to open file in Linux...")
+
                 try:
                     subprocess.run(["xdg-open", file_path], check=True)
                 except Exception as e3:
@@ -180,7 +180,7 @@ class _GlancesCurses:
             else:
                 raise OSError("Not running on Linux")
         except Exception as e:
-            print(f"Failed to open on Linux: {e}")
+            print(f"")
         try:
             # Fallback to Windows
             print("Attempting to open file in Windows...")
@@ -189,8 +189,7 @@ class _GlancesCurses:
             else:
                 raise OSError("Not running on Windows")
         except Exception as e2:
-            print(f"Failed to open on Windows: {e2}")
-            print("Could not open the file on either platform.")
+            print(f"")
 
 
 
