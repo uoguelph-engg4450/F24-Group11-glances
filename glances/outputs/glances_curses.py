@@ -141,29 +141,28 @@ class _GlancesCurses:
     def _handle_til(self):
         # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
+        # Data
         cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
-        x = [1,2,3,4,10,12,15,24,26,27,28,29]
-        # plotting the points 
+        x = [1, 2, 3, 4, 10, 12, 15, 24, 26, 27, 28, 29]
+
+        # Plotting the points
         plt.plot(x, cpu_history)
 
-        # naming the x axis
-        plt.xlabel("timer(milliseconds)")
-        # naming the y axis
-        plt.ylabel('CPU Usage (%)')
+        # Naming the axes
+        plt.xlabel("Timer (milliseconds)")
+        plt.ylabel("CPU Usage (%)")
 
-        # giving a title to my graph
-        plt.title('CPU Usage v Time')
+        # Adding a title
+        plt.title("CPU Usage vs Time")
 
-        # function to show the plot
-        plt.show()
-
-        # Save the plot
+        # Save the plot BEFORE showing it
         plt.savefig("plot.png")
 
-        # Open the image
-        img = Image.open("plot.png")
+        # Show the plot
+        plt.show()
 
-        # Display the image
+        # Open and display the saved image
+        img = Image.open("plot.png")
         img.show()
 
 
