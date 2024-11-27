@@ -170,7 +170,10 @@ class _GlancesCurses:
             # Attempt to open on Linux (WSL or native Linux)
             if platform.system() == "Linux":
                 print("Attempting to open file in Linux...")
-                subprocess.run(["xdg-open", file_path], check=True)
+                try:
+                    subprocess.run(["xdg-open", file_path], check=True)
+                except Exception as e3:
+                    subprocess.run(["explorer.exe", file_path], check=True)
             else:
                 raise OSError("Not running on Linux")
         except Exception as e:
