@@ -148,7 +148,7 @@ class _GlancesCurses:
 
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
         # Data
-        # cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
+        cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 505]
         x = [1, 2, 3, 4, 10, 12, 15, 24, 26, 27, 28, 29]
 
         # Plotting the points
