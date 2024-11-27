@@ -138,8 +138,9 @@ class _GlancesCurses:
         self.__init__(self.config, self.args)
 
     def _handle_til(self):
-        cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
-        gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
+        # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
+        # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
+        cpu_history = [0, 20, 200, 205, 503, 560, 503, 509, 600, 504, 546, 506]
         x = [1,2,3,4,10,12,15,24,26,27,28,29]
         # plotting the points 
         plt.plot(x, cpu_history)
