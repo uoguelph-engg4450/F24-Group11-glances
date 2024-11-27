@@ -145,7 +145,9 @@ class _GlancesCurses:
         # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
         data = self.history.get(nb=12)
         print(f"\nAvailable keys: {data}")
-        print(self.plugins["cpu"].get_stats())
+        cs_status=None
+        print(self.__get_stat_display('cpu', layer=cs_status))
+        
 
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
         # Data
