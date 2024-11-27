@@ -155,6 +155,7 @@ class _GlancesCurses:
 
         # function to show the plot
         plt.show()
+        print("plotted\n")
 
 
     def __init__(self, config=None, args=None):
