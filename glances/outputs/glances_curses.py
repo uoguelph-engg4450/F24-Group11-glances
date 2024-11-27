@@ -144,7 +144,7 @@ class _GlancesCurses:
     def _handle_til(self):
         # cpu_history = self.history.get(nb=12)["cpu"]  # Get the last 10 CPU data points
         data = self.history.get(nb=12)
-        print(f"Available keys: {data.keys()}")
+        print(f"\nAvailable keys: {data.keys()}")
 
         # gpu_history = self.history.get(nb=12)["gpu"]  # Get the last 10 GPU data points
         # Data
