@@ -178,16 +178,16 @@ class _GlancesCurses:
                 except Exception as e3:
                     subprocess.run(["explorer.exe", file_path])
             else:
-                raise OSError("Not running on Linux")
+                raise OSError("")
         except Exception as e:
             print(f"")
         try:
             # Fallback to Windows
-            print("Attempting to open file in Windows...")
+            print("")
             if platform.system() == "Windows":
                 os.startfile(file_path)  # Works only on Windows
             else:
-                raise OSError("Not running on Windows")
+                raise OSError("")
         except Exception as e2:
             print(f"")
 
