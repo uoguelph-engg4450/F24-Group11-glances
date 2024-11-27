@@ -158,8 +158,10 @@ class _GlancesCurses:
         # Adding a title
         plt.title("CPU Usage vs Time")
 
+        file_path = "plot.png"
+
         # Save the plot BEFORE showing it
-        plt.savefig("plot.png")
+        plt.savefig(file_path)
 
         # Show the plot
         plt.show()
