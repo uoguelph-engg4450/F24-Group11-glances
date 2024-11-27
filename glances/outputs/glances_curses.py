@@ -11,6 +11,7 @@
 import getpass
 import sys
 import matplotlib.pyplot as plt
+import os
 
 from glances.events_list import glances_events
 from glances.globals import MACOS, WINDOWS, disable, enable, itervalues, nativestr, u
@@ -155,8 +156,14 @@ class _GlancesCurses:
 
         # function to show the plot
         plt.show()
-        plt.savefig('plot.png')  # Save as PNG
-        print("plotted\n")
+
+        # Determine the path to the Downloads folder
+        downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
+        file_path = os.path.join(downloads_folder, "plot.png")  # Save as plot.png in Downloads
+
+        # Save the plot
+        plt.savefig(file_path)
+
 
 
     def __init__(self, config=None, args=None):
