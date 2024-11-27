@@ -155,6 +155,7 @@ class _GlancesCurses:
 
         # function to show the plot
         plt.show()
+        plt.savefig('plot.png')  # Save as PNG
         print("plotted\n")
 
 
