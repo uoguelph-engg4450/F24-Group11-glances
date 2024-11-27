@@ -11,7 +11,10 @@
 import getpass
 import sys
 import matplotlib.pyplot as plt
+import os
+import platform
 from PIL import Image
+import subprocess
 
 from glances.events_list import glances_events
 from glances.globals import MACOS, WINDOWS, disable, enable, itervalues, nativestr, u
@@ -161,9 +164,25 @@ class _GlancesCurses:
         # Show the plot
         plt.show()
 
-        # Open and display the saved image
-        img = Image.open("plot.png")
-        img.show()
+        try:
+            # Attempt to open on Linux (WSL or native Linux)
+            if platform.system() == "Linux":
+                print("Attempting to open file in Linux...")
+                subprocess.run(["xdg-open", file_path], check=True)
+            else:
+                raise OSError("Not running on Linux")
+        except Exception as e:
+            print(f"Failed to open on Linux: {e}")
+        try:
+            # Fallback to Windows
+            print("Attempting to open file in Windows...")
+            if platform.system() == "Windows":
+                os.startfile(file_path)  # Works only on Windows
+            else:
+                raise OSError("Not running on Windows")
+        except Exception as e2:
+            print(f"Failed to open on Windows: {e2}")
+            print("Could not open the file on either platform.")
 
 
 
